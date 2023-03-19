@@ -10,8 +10,8 @@
     <div class="container">
         <div class="breadcrumb-content">
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li class="active">Blog Left Sidebar</li>
+                <li><a href="/">Home</a></li>
+                <li class="active">Deals</li>
             </ul>
         </div>
     </div>
@@ -46,7 +46,7 @@
                         {% for product in items %}
                         <div class="li-recent-post pb-30">
                             <div class="li-recent-post-thumb">
-                                <a href="{% url 'productsInfo' product.uid %">
+                                <a href="{% url 'productsInfo' product.uid %}">
                                     <img class="img-full" src="{{product.imgField}}" alt="Li's Product Image">
                                 </a>
                             </div>
@@ -81,7 +81,9 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="li-blog-single-item pb-25">
                             <div class="li-blog-gallery-slider slick-dot-style">
-
+                                <div class="li-blog-banner">
+                                    <a href="{% url 'productsInfo' onlyOfferProduct.product.uid %}"><img class="img-full" src="{{onlyOfferProduct.product.imgField}}" alt="" width="40%" height="200px"></a>
+                                </div>
                                 {% for img in images %}
                                 {% if img.productName.name == onlyOfferProduct.product.name %} 
                                 <div class="li-blog-banner">
@@ -194,9 +196,9 @@
                                     </div>
                                     <div class="add-actions">
                                         <ul class="add-actions-link">
-                                            <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                            <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                            <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                            <li class="add-cart active"><a {% if request.user.is_authenticated %} href="{% url 'add_to_cart' offer.product.uid %}" {% else %} href="/signUp" {% endif %} >Add to cart</a></li>
+                                            <li><a class="links-details" {% if request.user.is_authenticated %} href="{% url 'add_to_wish_list' offer.product.uid %}" {% else %} href="/signUp" {% endif %}><i class="fa fa-heart-o"></i></a></li>
+                                            <!-- <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li> -->
                                         </ul>
                                     </div>
                                 </div>
@@ -252,7 +254,7 @@
                                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                             </ul>
                                         </div>
-                                        <h4><a class="featured-product-name" href="single-product.html">{{product.name}}</a></h4>
+                                        <h4><a class="featured-product-name" href="{% url 'productsInfo' product.uid %}">{{product.name}}</a></h4>
                                         <div class="featured-price-box">
                                             <span class="new-price">${{product.price}}</span>
                                         </div>

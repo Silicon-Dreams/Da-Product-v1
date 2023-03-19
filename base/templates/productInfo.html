@@ -9,7 +9,7 @@
     <div class="container">
         <div class="breadcrumb-content">
             <ul>
-                <li><a href="index.html">Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li class="active">Single Product</li>
             </ul>
         </div>
@@ -86,30 +86,9 @@
                                 </span>
                             </p>
                         </div>
-
-
-
-                         <!-- SIZEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE -->
-
-                         
-
-
-                     <!-- SIZEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE -->
-
-                     <br>
-
-                     <!-- COLORRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
-
-                     
-
-                     
-
-                     <!-- COLORRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
-
-
-
-
+                        <br>
                         <div class="single-add-to-cart">
+                            {% if request.user.is_authenticated %}
                             <form method="post" action="{% url 'add_to_cart' uid=item.uid %}">
                                 {% csrf_token %}
 
@@ -162,17 +141,11 @@
                                 <br>
                                 <button class="btn btn-primary" type="submit">Add to Cart</button>
                             </form>
+                            {% else %}
+                                <a href="{% url 'signUp' %}" class="btn btn-primary">Add to Cart</a>
+                            {% endif %}
                         </div>
-
-
-
-
-
-
-
-
                         <!-- SCRIPT AND STYLES -->
-
                         <style>
                             .activee{
                                 border: 2px solid #000 !important;
@@ -212,12 +185,8 @@
                         </script>
                         
                         <!-- SCRIPT AND STYLES -->
-
-
-
-
                         <div class="product-additional-info pt-25">
-                            <a class="wishlist-btn" href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a>
+                            <a class="wishlist-btn" {% if request.user.is_authenticated %} href="{% url 'add_to_wish_list' item.uid %}" {% else %} href="/signUp" {% endif %}><i class="fa fa-heart-o"></i>Add to wishlist</a>
                             <div class="product-social-sharing pt-25">
                                 <ul>
                                     <li class="facebook"><a href="#"><i class="fa fa-facebook"></i>Facebook</a></li>
@@ -412,7 +381,7 @@
                             <!-- single-product-wrap start -->
                             <div class="single-product-wrap">
                                 <div class="product-image">
-                                    <a href="single-product.html">
+                                    <a href="#">
                                         <img src="{{product.imgField}}" alt="Li's Product Image">
                                     </a>
                                     <span class="sticker">New</span>
@@ -433,7 +402,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <h4><a class="product_name" href="single-product.html">{{product.name}}</a></h4>
+                                        <h4><a class="product_name" href="#">{{product.name}}</a></h4>
                                         <div class="price-box">
                                             <span class="new-price">${{product.price}}</span>
                                         </div>
@@ -442,7 +411,7 @@
                                         <ul class="add-actions-link">
                                             <li class="add-cart active"><a href="#">Add to cart</a></li>
                                             <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                            <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
+                                            <li><a class="links-details" href="#"><i class="fa fa-heart-o"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>

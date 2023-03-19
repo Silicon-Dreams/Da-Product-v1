@@ -33,8 +33,8 @@
     <div class="container">
         <div class="breadcrumb-content">
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li class="active">Shop Left Sidebar</li>
+                <li><a href="/">Home</a></li>
+                <li class="active">Category</li>
             </ul>
         </div>
     </div>
@@ -96,7 +96,7 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="single-product.html">
+                                                <a href="{% url 'productsInfo' item.uid %}">
                                                     <img src="{{item.imgField}}" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
@@ -132,9 +132,9 @@
                                                 </div>
                                                 <div class="add-actions">
                                                     <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="{% url 'add_to_cart' item.uid %}">Add to cart</a></li>
+                                                        <li class="add-cart active"><a {% if request.user.is_authenticated %} href="{% url 'add_to_cart' item.uid %}" {% else %} href="/signUp" {% endif %}>Add to cart</a></li>
                                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter-{{forloop.counter}}"><i class="fa fa-eye"></i></a></li>
-                                                        <li><a class="links-details" href="{% url 'add_to_wish_list' item.uid %}"><i class="fa fa-heart-o"></i></a></li>
+                                                        <li><a class="links-details" {% if request.user.is_authenticated %} href="{% url 'add_to_wish_list' item.uid %}" {% else %} href="/signUp" {% endif %}><i class="fa fa-heart-o"></i></a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -154,7 +154,7 @@
                                     <div class="row product-layout-list">
                                         <div class="col-lg-3 col-md-5 ">
                                             <div class="product-image">
-                                                <a href="single-product.html">
+                                                <a href="{% url 'productsInfo' item.uid %}">
                                                     <img src="{{item.imgField}}" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
@@ -181,16 +181,16 @@
                                                     <div class="price-box">
                                                         <span class="new-price">${{item.price}}</span>
                                                     </div>
-                                                    <p>Beach Camera Exclusive Bundle - Includes Two Samsung Radiant 360 R3 Wi-Fi Bluetooth Speakers. Fill The Entire Room With Exquisite Sound via Ring Radiator Technology. Stream And Control R3 Speakers Wirelessly With Your Smartphone. Sophisticated, Modern Desig</p>
+                                                    <p>{{ item.description }}</p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="shop-add-action mb-xs-30">
                                                 <ul class="add-actions-link">
-                                                    <li class="add-cart"><a href="{% url 'add_to_cart' item.uid %}">Add to cart</a></li>
-                                                    <li class="wishlist"><a href="{% url 'add_to_wish_list' item.uid %}"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
-                                                    <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
+                                                    <li class="add-cart"><a {% if request.user.is_authenticated %} href="{% url 'add_to_cart' item.uid %}" {% else %} href="/signUp" {% endif %}>Add to cart</a></li>
+                                                    <li class="wishlist"><a {% if request.user.is_authenticated %} href="{% url 'add_to_wish_list' item.uid %}" {% else %} href="/signUp" {% endif %}><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
+                                                    <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter-{{forloop.counter}}" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
                                                 </ul>
                                             </div>
                                         </div>

@@ -90,22 +90,26 @@ def productsInfo(request, pk):
 
 
 def logIn(request):
-    if request.method == "POST":
-        username = request.POST.get('name')
-        psw = request.POST.get('password')
+    if request.user.is_authenticated:
+        messages.warning(request,"You are already Logged in")
+        return redirect('home')
+    else:
+        if request.method == "POST":
+            username = request.POST.get('name')
+            psw = request.POST.get('password')
 
-        user = authenticate(request,username=username, password=psw)
-        print(username)
-        print(psw)
-        print(user)
+            user = authenticate(request,username=username, password=psw)
+            print(username)
+            print(psw)
+            print(user)
 
-        if user is not None:
-            login(request, user)
-            messages.success(request, "Logged in Successfully")
-            return redirect('./')
-        else:
-            messages.error(request,"Invalid Email or Password")
-            return redirect('.')
+            if user is not None:
+                login(request, user)
+                messages.success(request, "Logged in Successfully")
+                return redirect('./')
+            else:
+                messages.warning(request,"Invalid Email or Password")
+                return redirect('.')
 
 
     return render(request, 'logIn.html')
@@ -298,10 +302,11 @@ def add_to_cart(request, uid):
     user = request.user 
     
     quantity = 1
+    # selected_size = None
     if request.method=="POST":
         quantity = int(request.POST.get('quantity'))
-        selected_size = request.POST.get('selected_size')
-        print(selected_size)
+        # selected_size = request.POST.get('selected_size')
+        # print(selected_size)
 
     # if quantity > item.quantity:
     #     messages.error(request, 'Insufficient quantity.')
@@ -310,7 +315,7 @@ def add_to_cart(request, uid):
     cart , _ = Cart.objects.get_or_create(user = user)
     cart_item = CartItems.objects.create(cart=cart, item=item, )
     cart_item.quantity = quantity
-    cart_item.size = selected_size
+    # cart_item.size = selected_size
     
     cart_item.save()
     

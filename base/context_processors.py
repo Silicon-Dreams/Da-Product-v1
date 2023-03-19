@@ -26,4 +26,9 @@ def cart_item(request):
                         return {'cart_item': None}
         else:
                 return {'cart_item': None}
+        
+        
+def categoriesNav(request):
+        categoriesNav = Category.objects.all()
+        return {'categoriesNav': categoriesNav}
                 
