@@ -15,3 +15,15 @@ def wish_cart_item_count(request):
                 return {'wish_item_count': y}
         else:
                 return {'wish_item_count': 0}
+        
+        
+def cart_item(request):
+        if request.user.is_authenticated:
+                if Cart.objects.get(user=request.user):
+                        cart_item = Cart.objects.get(user=request.user)
+                        return {'cart_item': cart_item}
+                else:
+                        return {'cart_item': None}
+        else:
+                return {'cart_item': None}
+                
