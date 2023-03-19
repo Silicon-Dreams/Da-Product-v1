@@ -1,0 +1,140 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+{% load static %}
+
+
+
+<!-- Begin Li's Breadcrumb Area -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Shopping Cart</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Li's Breadcrumb Area End Here -->
+<!--Shopping Cart Area Strat-->
+
+<div class="Shopping-cart-area pt-60 pb-60">
+    <div class="container">
+
+        {% if cart.cart_items.all %}
+        <div class="row">
+            <div class="col-12">
+                
+                    <div class="table-content table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="li-product-remove">remove</th>
+                                    <th class="li-product-thumbnail">images</th>
+                                    <th class="cart-product-name">Product</th>
+                                    <th class="li-product-price">Unit Price</th>
+                                    <th class="li-product-quantity">Quantity</th>
+                                    <th class="li-product-subtotal">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {% for item in cart.cart_items.all %}
+                                <tr>
+                                    <td class="li-product-remove"><a href="{% url 'remove_cart' item.uid %}"><i class="fa fa-times"></i></a></td>
+                                    <td class="li-product-thumbnail" style="width: 20%;"><a href="#"><img src="{{item.item.imgField}}" alt="Li's Product Image" style="width: 50%;"></a></td>
+                                    <td class="li-product-name"><a href="#">{{item.item.name}}</a></td>
+                                    <td class="li-product-price"><span class="amount">${{item.item.price}}</span></td>
+                                    <td class="quantity">
+                                        <label>{{item.quantity}} x ${{item.item.price}}</label>
+                                        <!-- <div class="cart-plus-minus">
+                                            <input class="cart-plus-minus-box" value="{{item.quantity}}" type="text">
+                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                        </div> -->
+                                    </td>
+                                    <td class="product-subtotal"><span class="amount">${{item.get_item_price}}</span></td>
+                                </tr>
+                                {% endfor %}
+
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            
+                                <div class="coupon-all">
+                                    <div class="coupon">
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                        <input id="coupon_code" class="input-text" name="coupon_code" value="" placeholder="Coupon code" type="text">
+                                        <button type="submit" class="btn btn-primary">Apply</button>
+                                        {% if cart.coupon %}
+                                        <a href="{% url 'remove_coupon' cart.uid %}" class="btn btn-success">Remove Coupon</a>
+                                        {% endif %}
+                                        </form>
+                                    </div>
+                                    <!-- <div class="coupon2">
+                                        <input class="button" name="update_cart" value="Update cart" type="submit">
+                                    </div> -->
+                                </div>            
+
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 ml-auto">
+                            <div class="cart-page-total">
+                                <h2>Cart totals</h2>
+                                <ul>
+                                    <li>Subtotal <span>${{cart.get_total_price}}</span></li>
+                                    <li>Total <span>${{cart.get_total_price}}</span></li>
+                                </ul>
+                                <a href="/checkout">Proceed to checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+
+        {% else %}
+
+        <!-- create an empty cart card and image -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="text-center">Your cart is empty</h3>
+                        {% comment %} <img src="https://assets9.lottiefiles.com/datafiles/MUp3wlMDGtoK5FK/data.json" alt="empty cart" class="img-fluid" width="25%"> {% endcomment %}
+
+                        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+                        <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_9nP76E1BYh.json"  background="transparent" class="img-fluid" width="25%"  speed="1"  style="width: 300px; height: 300px;"  loop autoplay></lottie-player>
+
+                        {% comment %} https://img.freepik.com/free-vector/shopping-cart-realistic_1284-6011.jpg?w=740&t=st=1678880857~exp=1678881457~hmac=b226e5ca5f92c58cd59a92bb468d7b7d0672aac7a99bd0410940bfff515028f0 {% endcomment %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <style>
+            .img-fluid{
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        </style>
+
+        {% endif %}
+
+
+    </div>
+</div>
+<!--Shopping Cart Area End-->
+
+{% endblock content %}

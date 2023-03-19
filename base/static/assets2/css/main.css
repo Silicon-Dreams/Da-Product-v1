@@ -1,0 +1,85 @@
+
+/*--
+    slider Start
+--*/
+#slider {
+  padding: 50px 0px;
+}
+#slider .block {
+  padding: 0px 40px;
+}
+#slider .block .title {
+  padding: 0px ;
+}
+#slider .block .owl-carousel {
+  padding-top: 30px;
+  position: relative;
+  text-align: center;
+}
+/* #slider .block .owl-carousel img {
+  padding-right: 30px;
+  border-radius: 2px;
+  padding-bottom: 50px;
+} */
+
+.pro{
+  margin-right: 15px;
+}
+
+#slider .block .owl-carousel .owl-pagination .active {
+  background: #FF5333;
+}
+#slider .block .owl-carousel .owl-pagination div {
+  background: #DADADA;
+  border-radius: 100%;
+  display: inline-block;
+  height: 10px;
+  margin-right: 5px;
+  width: 10px;
+}
+#slider .block .owl-carousel .owl-buttons {
+  position: absolute;
+  right: 0;
+  top: -40px;
+  font-size: 40px;
+  color: #AA9D84;
+}
+
+
+/* Slider 2 */
+
+
+
+#slider .block .owl-carousel2 {
+  padding-top: 30px;
+  position: relative;
+  text-align: center;
+}
+/* #slider .block .owl-carousel img {
+  padding-right: 30px;
+  border-radius: 2px;
+  padding-bottom: 50px;
+} */
+
+.pro{
+  margin-right: 15px;
+}
+
+#slider .block .owl-carousel2 .owl-pagination .active {
+  background: #FF5333;
+}
+#slider .block .owl-carousel2 .owl-pagination div {
+  background: #DADADA;
+  border-radius: 100%;
+  display: inline-block;
+  height: 10px;
+  margin-right: 5px;
+  width: 10px;
+}
+#slider .block .owl-carousel2 .owl-buttons {
+  position: absolute;
+  right: 0;
+  top: -40px;
+  font-size: 40px;
+  color: #AA9D84;
+}

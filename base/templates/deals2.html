@@ -1,0 +1,315 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+{% load static %}
+
+
+<section class="page-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="content">
+					<h1 class="page-name">Deals</h1>
+					<ol class="breadcrumb">
+						<li><a href="/">Home</a></li>
+						<li class="active">deals</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<div class="page-wrapper">
+	<div class="container">
+		<div class="row">
+      		<div class="col-md-4">
+				<aside class="sidebar">
+	<div class="widget widget-subscription">
+		<h4 class="widget-title">Get notified with our top sales</h4>
+		<form>
+		  <div class="form-group">
+		    <input type="email" class="form-control" placeholder="Your Email Address">
+		  </div>
+		  <button type="submit" class="btn btn-main">I am in</button>
+		</form>
+	</div>
+
+	<!-- Widget Latest Posts -->
+	<div class="widget widget-latest-post">
+		<h4 class="widget-title">Top visited products</h4>
+
+        {% for product in items %}
+            <div class="media">
+                <a class="pull-left" href="{% url 'productsInfo' product.uid %}">
+                    <img class="media-object" src="{{product.imgField}}" alt="Image">
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading"><a href="{% url 'productsInfo' product.uid %}">{{product.name}}</a></h4>
+                    <p>{{product.bio}}</p>
+                    <p><i class="tf-ion-eye"></i>{{product.views}}</p>
+                </div>
+            </div>
+        {% endfor %}
+
+		
+
+	</div>
+	<!-- End Latest Posts -->
+
+	<!-- Widget Category -->
+
+	<div class="widget widget-category">
+		<h4 class="widget-title">Categories</h4>
+		<ul class="widget-category-list">
+            {% for category in categories %}
+	            <li><a href="http://127.0.0.1:8000/products/{{category.uid}}">{{category.name}}</a></li>
+            {% endfor %}
+	    </ul>
+	</div> <!-- End category  -->
+
+	<!-- Widget tag -->
+	<!-- <div class="widget widget-tag">
+		<h4 class="widget-title">Tag Cloud</h4>
+		<ul class="widget-tag-list">
+	        <li><a href="#!">Animals</a>
+	        </li>
+	        <li><a href="#!">Landscape</a>
+	        </li>
+	        <li><a href="#!">Portrait</a>
+	        </li>
+	        <li><a href="#!">Wild Life</a>
+	        </li>
+	        <li><a href="#!">Video</a>
+	        </li>
+	    </ul>
+	</div>  -->
+    <!-- End tag  -->
+
+	
+
+
+
+
+
+</aside>
+</div>
+
+
+	<div class="col-md-8">
+        {% for onlyOfferProduct in onlyOfferProduct %}
+            <div class="post">
+                <div class="post-media post-thumb">
+                    <a href="{% url 'productsInfo' onlyOfferProduct.product.uid %}">
+                        <center>
+                        <img style="width:50%; height:200px;" src="{{onlyOfferProduct.product.imgField}}" alt="">
+                    </center>
+                    </a>
+                </div>
+                <h2 class="post-title"><a href="{% url 'productsInfo' onlyOfferProduct.product.uid %}">{{onlyOfferProduct.product.name}}</a></h2>
+                <div class="post-meta">
+                    <ul>
+                        <li>
+                            <i class="tf-ion-ios-calendar"></i> Ends at: {{onlyOfferProduct.timeLeft}}
+                        </li>
+                        
+                        <li>
+                            <a href="http://127.0.0.1:8000/products/{{onlyOfferProduct.product.category.uid}}"><i class="tf-ion-ios-pricetags"></i> {{onlyOfferProduct.product.category.name}}</a>
+                        </li>
+                        <li>
+                            <i class="tf-ion-android-alarm-clock"></i><del>${{onlyOfferProduct.product.salePrice}}</del>  <i class="tf-ion-arrow-right-a"></i> ${{onlyOfferProduct.product.price}}
+                        </li>
+                        <!-- <li>
+                            <a href="#!"><i class="tf-ion-chatbubbles"></i> 4 COMMENTS</a>
+                        </li> -->
+                    </ul>
+                </div>
+                <div class="post-content">
+                    <p>{{onlyOfferProduct.offerDescription}}</p>
+                    <a href="{% url 'productsInfo' onlyOfferProduct.product.uid %}" class="btn btn-main">Get Offer</a>
+                </div>
+            </div>
+        {% endfor %}
+       
+
+
+
+
+<!-- <div class="text-center">
+	<ul class="pagination post-pagination">
+		<li><a href="#!">Prev</a>
+		</li>
+		<li class="active"><a href="#!">1</a>
+		</li>
+		<li><a href="#!">2</a>
+		</li>
+		<li><a href="#!">3</a>
+		</li>
+		<li><a href="#!">4</a>
+		</li>
+		<li><a href="#!">5</a>
+		</li>
+		<li><a href="#!">Next</a>
+		</li>
+	</ul>
+</div> -->
+      		</div>
+		</div>
+	</div>
+</div>
+
+
+{% comment %} FUCK IT {% endcomment %}
+	{% for category in categoriesT %}
+	<div class="slider">
+		<div class="title" style="margin-left:50px;">
+			<h3><a href="{% url 'products' category.uid %}" style="color:black">{{category.name}}</a></span></h3>
+		</div>
+		<div class="cards">
+		  {% for product in itemsT %}
+		  {% if product.category.name == category.name %}
+		  <div class="product-item card">
+			<div class="product-thumb">
+				<span class="bage">Sale</span>
+				<img class="img-responsive" src="{{product.imgField}}" alt="product-img" />
+				<div class="preview-meta">
+					<ul>
+						<li>
+							<a href="{% url 'productsInfo' product.uid %}">
+								<i class="tf-ion-ios-search-strong"></i>
+							</a>
+						</li>
+						<li>
+							<a href="{% url 'add_to_wish_list' product.uid %}"><i id='heart-icon' class="fa fa-heart-o"></i></a>
+							{% comment %} <span id='heart-icon' class="fa fa-heart-o"></span> {% endcomment %}
+						</li>
+						<li>
+							<a href="#!"><i class="tf-ion-android-cart"></i></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="product-content">
+				<h4><a href="{% url 'productsInfo' product.uid %}">{{product.name}}</a></h4>
+                <p class="price">$<del>{{product.salePrice}}</del></p>
+				<p class="price">${{product.price}}</p>
+			</div>
+		</div>
+		  {% endif %}
+		  {% endfor %}
+		</div>
+		<button class="prev">&#10094;</button>
+		<button class="next">&#10095;</button>
+	</div>
+	{% endfor %}
+	{% comment %} FUCK IT {% endcomment %}
+
+	{% comment %} FUCK IT AGAIN {% endcomment %}
+	<style>
+		.slider {
+			position: relative;
+			width: 100%;
+			overflow: hidden;
+			margin-bottom:100px;
+		  }
+		  
+		  .cards {
+			display: flex;
+			flex-wrap: nowrap;
+			width: fit-content;
+			transition: transform 0.3s ease-in-out;
+			margin: 0 50px;
+			height:70%;
+		  }
+		  
+		  .card {
+			width: 200px;
+			margin-right: 20px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+			border-radius: 10px;
+			overflow: hidden;
+			
+		  }
+		  
+		  .card img {
+			width: 100%;
+			height: 200px;
+			object-fit: cover;
+		  }
+		  
+		  .card h3 {
+			margin: 10px;
+		  }
+		  
+		  .card p {
+			margin: 10px;
+		  }
+		  
+		  .card button {
+			margin: 10px;
+			padding: 10px 20px;
+			background-color: #333;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		  }
+		  
+		  .prev,
+		  .next {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			padding: 10px;
+			background-color: #333;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		  }
+		  
+		  .prev {
+			left: 10px;
+		  }
+		  
+		  .next {
+			right: 10px;
+		  }
+	</style>
+	{% comment %} FUCK IT AGAIN {% endcomment %}
+
+	{% comment %} FUCK IT AGAIN AGAIN {% endcomment %}
+	<script>
+		const sliders = document.querySelectorAll('.slider');
+
+sliders.forEach((slider) => {
+  const cards = slider.querySelector('.cards');
+  const prev = slider.querySelector('.prev');
+  const next = slider.querySelector('.next');
+
+  let cardIndex = 0;
+  let translateX = 0;
+
+  prev.addEventListener('click', () => {
+    if (cardIndex !== 0) {
+      cardIndex--;
+      translateX += 320;
+      cards.style.transform = `translateX(${translateX}px)`;
+    }
+  });
+
+  next.addEventListener('click', () => {
+    if (cardIndex !== 4) { // assuming there are 5 cards
+      cardIndex++;
+      translateX -= 320;
+      cards.style.transform = `translateX(${translateX}px)`;
+    }
+  });
+});
+	</script>
+	{% comment %} FUCK IT AGAIN AGAIN {% endcomment %}
+
+
+{% endblock content %}
+

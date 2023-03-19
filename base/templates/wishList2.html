@@ -1,0 +1,83 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+{% load static %}
+
+
+<section class="page-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="content">
+					<h1 class="page-name">WishList</h1>
+					<ol class="breadcrumb">
+						<li><a href="index.html">Home</a></li>
+						<li class="active">WishList</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+
+<div class="page-wrapper">
+  <div class="cart shopping">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <div class="block">
+            <div class="product-list">
+              <form method="post">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th class="">Item Name</th>
+                      <th class="">Item Price</th>
+                      <th class="">Status</th>
+                      <th class=""></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    {% for item in cartWish.wish_list_items.all %}
+                    <tr class="">
+                      <td class="">
+                        <div class="product-info">
+                          <img width="80" height="60" src="{{item.item.imgField}}" alt="" />
+                          <a href="">{{item.item.name}}</a>
+                        </div>
+                      </td>
+                      <td class="">${{item.item.price}}</td>
+                      {% if item.item.availability %}
+                          <td class="">
+                            <span style="color:white;" class="label label-success">In Stock</span>
+                          </td>
+                        {% else %}
+                          <td class="">
+                            <span style="color:white;" class="label label-danger">Not Available</span>
+                          </td>
+                        {% endif %}
+                      <td class="">
+                        <a class="product-remove" href="{% url 'remove_wish_list' item.uid %}">Remove</a>
+                      </td>
+                        
+                    </tr>
+                    {% endfor %}
+
+                  </tbody>
+                </table>
+                <!-- <a href="checkout.html" class="btn btn-main pull-right">Checkout</a> -->
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock content %}

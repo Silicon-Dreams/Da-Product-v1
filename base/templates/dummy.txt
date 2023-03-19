@@ -1,0 +1,275 @@
+<!--
+    Slider start
+    ============================== -->
+	{% for category in categories %}
+	<section id="slider">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="block wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
+						<div class="title">
+							<h3><a href="{% url 'products' category.uid %}">{{category.name}}</a></span></h3>
+						</div>
+						<div id="owl-example" class="owl-carousel">
+							{% for product in items %}
+							{% if product.category.name == category.name %}
+							<div>
+								<div class="product-item pro">
+									<div class="product-thumb">
+										<span class="bage">Sale</span>
+										<img class="img-responsive" style="width:100%; height:200px;" src="{{product.imgField}}" alt="product-img" />
+										<div class="preview-meta">
+											<ul>
+												<li>
+													<a  href="{% url 'productsInfo' product.uid %}">
+														<i class="tf-ion-ios-search-strong"></i>
+													</a>
+												</li>
+												<li>
+													<a href="{% url 'add_to_wish_list' product.uid %}" ><i id='heart-icon' class="fa fa-heart-o"></i></a>
+													{% comment %} <span id='heart-icon' class="fa fa-heart-o"></span> {% endcomment %}
+												</li>
+												<li>
+													<a href="#!"><i class="tf-ion-android-cart"></i></a>
+												</li>
+											</ul>
+										  </div>
+									</div>
+									<div class="product-content">
+										<h4><a href="product-single.html">{{product.name}}</a></h4>
+										<p class="price">${{product.price}}</p>
+									</div>
+								</div>
+							</div>
+							{% endif %}
+							{% endfor %}
+						
+							
+							
+							
+
+						</div>
+					</div>
+				</div><!-- .col-md-12 close -->
+			</div><!-- .row close -->
+		</div><!-- .container close -->
+	</section><!-- slider close -->
+	{% endfor %}
+
+
+
+
+
+
+	<script>
+		let products = document.querySelector('.slider-container');
+		let prev = document.querySelector('.prev');
+		let next = document.querySelector('.next');
+		let move = 0;
+
+		next.addEventListener('click', () => {
+		move -= 25;
+		products.style.transform = `translateX(${move}%)`;
+		if (move < -75) {
+			move = 0;
+			products.style.transform = `translateX(${move}%)`;
+		}
+		});
+
+		prev.addEventListener('click', () => {
+		move += 25;
+		products.style.transform = `translateX(${move}%)`;
+		if (move > 0) {
+			move = -75;
+			products.style.transform = `translateX(${move}%)`;
+		}
+		});
+	</script>
+
+
+	{% comment %} ********************* {% endcomment %}
+
+	<div class="slider">
+		<div class="slider-container">
+				<div class="col-md-4">
+					<div class="product-item">
+						<div class="product-thumb">
+							<span class="bage">Sale</span>
+							<img class="img-responsive" src="{% static 'images/shop/products/product-1.jpg' %}" alt="product-img" />
+							<div class="preview-meta">
+								<ul>
+									<li>
+										<span  data-toggle="modal" data-target="#product-modal">
+											<i class="tf-ion-ios-search-strong"></i>
+										</span>
+									</li>
+									<li>
+										<a href="#!" ><i id='heart-icon' class="fa fa-heart-o"></i></a>
+									</li>
+									<li>
+										<a href="#!"><i class="tf-ion-android-cart"></i></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="product-content">
+							<h4><a href="product-single.html">Reef Boardsport</a></h4>
+							<p class="price">$200</p>
+						</div>
+					</div>
+				</div>
+		</div>
+		<div class="slider-controls">
+		  <button class="prev">&#10094;</button>
+		  <button class="next">&#10095;</button>
+		</div>
+	</div>
+
+
+
+
+	.slider {
+		width: 100%;
+		overflow: hidden;
+	  }
+	  
+	  .slider-container {
+		display: flex;
+		transition: transform 0.3s ease-in-out;
+	  }
+	  
+	  .product {
+		flex: 0 0 25%;
+		padding: 0 10px;
+		text-align: center;
+	  }
+	  
+	  .product img {
+		width: 100%;
+	  }
+	  
+	  .slider-controls {
+		display: flex;
+		justify-content: center;
+		margin-top: 10px;
+	  }
+	  
+	  .slider-controls button {
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		font-size: 20px;
+		margin: 0 10px;
+		outline: none;
+	  }
+
+
+	*****************
+
+	.slider {
+		position: relative;
+	  }
+	  
+	  .slider-controls {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+	  }
+	  
+	  .slider-controls .prev {
+		position: absolute;
+		left: 0;
+	  }
+	  
+	  .slider-controls .next {
+		position: absolute;
+		right: 0;
+	  }
+
+
+
+{% comment %} DUMDUMMMMMMMMMMM {% endcomment %}
+
+{% comment %} New Products Slider {% endcomment %}
+
+{% for category in categories %}
+<div class="slider">
+	<div class="slider-container">
+		{% for product in items %}
+		{% if product.category.name == category.name %}
+			<div class="col-md-4">
+				<div class="product-item">
+					<div class="product-thumb">
+						<span class="bage">Sale</span>
+						<img class="img-responsive" src="{% static 'images/shop/products/product-1.jpg' %}" alt="product-img" />
+						<div class="preview-meta">
+							<ul>
+								<li>
+									<span  data-toggle="modal" data-target="#product-modal">
+										<i class="tf-ion-ios-search-strong"></i>
+									</span>
+								</li>
+								<li>
+									<a href="#!" ><i id='heart-icon' class="fa fa-heart-o"></i></a>
+									{% comment %} <span id='heart-icon' class="fa fa-heart-o"></span> {% endcomment %}
+								</li>
+								<li>
+									<a href="#!"><i class="tf-ion-android-cart"></i></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="product-content">
+						<h4><a href="product-single.html">Reef Boardsport</a></h4>
+						<p class="price">$200</p>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+		{% endfor %}
+	</div>
+	<div class="slider-controls">
+	  <button class="prev">&#10094;</button>
+	  <button class="next">&#10095;</button>
+	</div>
+</div>
+{% endfor %}
+
+{% comment %} New Products Slider {% endcomment %}
+
+<style>
+	.slider {
+		width: 100%;
+		overflow: hidden;
+	  }
+	  
+	  .slider-container {
+		display: flex;
+		transition: transform 0.3s ease-in-out;
+	  }
+	  
+	  .product {
+		flex: 0 0 25%;
+		padding: 0 10px;
+		text-align: center;
+	  }
+	  
+	  .product img {
+		width: 100%;
+	  }
+	  
+	  .slider-controls {
+		display: flex;
+		justify-content: center;
+		margin-top: 10px;
+	  }
+	  
+	  .slider-controls button {
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		font-size: 20px;
+		margin: 0 10px;
+		outline: none;
+	  }
+</style>

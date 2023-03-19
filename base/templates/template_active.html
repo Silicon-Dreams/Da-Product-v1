@@ -1,0 +1,14 @@
+
+{% autoescape off %}
+
+Dear {{user}},
+
+Thank you for registering with e-commerce! To complete your registration and activate your account, please click on the activation link below:
+
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+
+If you have any issues or questions, please don't hesitate to contact our support team at info@Ecommerce.com.
+
+Thank you for choosing e-commerce as your go-to platform. We look forward to serving you!
+
+{% endautoescape %}

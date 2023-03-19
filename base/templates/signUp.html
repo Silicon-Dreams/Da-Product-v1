@@ -1,0 +1,110 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+{% load static %}
+
+
+<!-- Begin Li's Breadcrumb Area -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Login Register</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Li's Breadcrumb Area End Here -->
+<!-- Begin Login Content Area -->
+<div class="page-section mb-60" style="margin-top: 30px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xs-12">
+                <form method="POST">
+                    {% csrf_token %}
+                    {% if form.errors %}
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <div id="form_errors">
+                                {% for key, value in form.errors.items %}
+                                    <strong>{{key}} {{ value }}</strong>
+                                {% endfor %}
+                            </div>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endif %}
+                    <div class="login-form">
+                        <h4 class="login-title">Register</h4>
+                        <div class="row">
+                            <div class="col-md-6 col-12 mb-20">
+                                <label>First Name</label>
+                                <!-- <input class="mb-0" type="text" placeholder="First Name"> -->
+                                {{ form.first_name }}
+                            </div>
+                            <div class="col-md-6 col-12 mb-20">
+                                <label>Last Name</label>
+                                <!-- <input class="mb-0" type="text" placeholder="Last Name"> -->
+                                {{ form.last_name }}
+                            </div>
+                            <div class="col-md-6 col-12 mb-20">
+                                <label>User Name</label>
+                                <!-- <input class="mb-0" type="text" placeholder="User Name"> -->
+                                {{ form.username }}
+                            </div>
+                            <div class="col-md-12 mb-20">
+                                <label>Email Address*</label>
+                                <!-- <input class="mb-0" type="email" placeholder="Email Address"> -->
+                                {{ form.email }}
+                            </div>
+                            <div class="col-md-6 mb-20">
+                                <label>Password</label>
+                                <!-- <input class="mb-0" type="password" placeholder="Password"> -->
+                                {{ form.password1 }}
+                            </div>
+                            <div class="col-md-6 mb-20">
+                                <label>Confirm Password</label>
+                                <!-- <input class="mb-0" type="password" placeholder="Confirm Password"> -->
+                                {{ form.password2 }}
+                            </div>
+                            <div class="col-md-6 mb-20">
+                                <label>Phone Number</label>
+                                <!-- <input class="mb-0" type="password" placeholder="Confirm Password"> -->
+                                {{ form.phoneNumber }}
+                            </div>
+                            <div class="col-md-6 mb-20">
+                                <label>Country</label>
+                                <!-- <input class="mb-0" type="password" placeholder="Confirm Password"> -->
+                                {{ form.country }}
+                            </div>
+                            <div class="col-md-6 mb-20">
+                                <select id="id_filter_by" name="gender" required class="form-control">
+                                  <option value="gender" selected="selected">Gender</option>
+                                  <option value="male">Male</option>
+                                  <option value="female">Female</option>
+                                  </select>
+                              </div>
+                            <div class="col-12">
+                                <button type="submit" class="register-button mt-0">Register</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock content %}

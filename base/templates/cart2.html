@@ -1,0 +1,242 @@
+{% extends 'main.html' %}
+{% block content %}
+{% load static %}
+
+
+
+<section class="page-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="content">
+					<h1 class="page-name">Cart</h1>
+					<ol class="breadcrumb">
+						<li><a href="/">Home</a></li>
+						<li class="active">Cart</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- 
+
+<div class="page-wrapper">
+  <div class="cart shopping">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <div class="block">
+            <div class="product-list">
+              <form method="post">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th class="">Item Name</th>
+                      <th class="">Item Price</th>
+                      <th class="">Status</th>
+                      <th class=""></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for item in cart.cart_items.all %}
+
+
+                    <tr class="">
+                      <td class="">
+                        <div class="product-info">
+                          <img width="80" height="60" src="{{item.item.imgField}}" alt="" />
+                          <a href="">{{item.item.name}}</a>
+                        </div>
+                      </td>
+                      <td class="">${{item.item.price}}</td>
+                    {% if item.item.availability %}
+                          <td class="">
+                            <span style="color:white;" class="label label-success">In Stock</span>
+                          </td>
+                        {% else %}
+                          <td class="">
+                            <span style="color:white;" class="label label-danger">Not Available</span>
+                          </td>
+                        {% endif %}
+                      
+
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+                </form>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div> -->
+
+            
+            
+        
+            {% if cart.cart_items.all %}
+            <div class="cart-checkout">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="block">
+                                <div class="product-list">
+                                    <form method="post">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="">Item Name</th>
+                                                    <th class="">Item Price</th>
+                                                    <th class="">Status</th>
+                                                    <th class=""></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for item in cart.cart_items.all %}
+                                                <tr class="">
+                                                    <td class="">
+                                                        <div class="product-info">
+                                                            <img width="80" height="60" src="{{item.item.imgField}}" alt="" />
+                                                            <a href="">{{item.item.name}}</a>
+                                                        </div>
+                                                    </td>
+                                                    <td class="">${{item.item.price}}</td>
+                                                    {% if item.item.availability %}
+                                                    <td class="">
+                                                        <span style="color:white;" class="label label-success">In Stock</span>
+                                                    </td>
+                                                    {% else %}
+                                                    <td class="">
+                                                        <span style="color:white;" class="label label-danger">Not Available</span>
+                                                    </td>
+                                                    {% endif %}
+                                                    <td class="">
+                                                        <a class="product-remove" href="{% url 'remove_cart' item.uid %}">Remove</a>
+                                                    </td>
+                                                    
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </form>
+                                </div>
+                                <div class="cart-summary">
+                                    <h5>Cart Total</h5>
+                                    <div class="summary-table">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>subtotal:</td>
+                                                        <td>${{cart.get_total_price}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>shipping:</td>
+                                                        <td>Free Shipping</td>
+                                                    </tr>
+                                                    <tr class="total">
+                                                        <td>total:</td>
+                                                        <td>${{cart.get_total_price}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <a href="#!" class="btn btn-main pull-right">Checkout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+
+
+            <style>
+                .btn-main-cart {
+                    background-color: #f5f5f5;
+                    color: #000;
+                    border: 1px solid #000;
+                    border-radius: 0;
+                    padding: 10px 20px;
+                    margin: 0 auto;
+                    display: block;
+                }
+            </style>
+ 
+            <div class="cart-empty">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            
+                            <img src="https://www.freeiconspng.com/uploads/empty-cart-icon-0.png" alt="empty cart" width="200" height="200">
+
+
+
+                            
+
+
+
+                            
+                            <div class="block">
+                                <div class="icon">
+                                    <i class="ion-ios-cart-outline"></i>
+                                </div>
+                                <p class="text-center">Your cart is empty.</p>
+                                <a href="/" class="btn btn-main-cart">Continue Shopping</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+
+
+
+    
+
+                    <!-- {% for item in cart.wish_list_items.all %}
+                    <tr class="">
+                      <td class="">
+                        <div class="product-info">
+                          <img width="80" height="60" src="{{item.item.imgField}}" alt="" />
+                          <a href="">{{item.item.name}}</a>
+                        </div>
+                      </td>
+                      <td class="">${{item.item.price}}</td>
+                      {% if item.item.availability %}
+                          <td class="">
+                            <span style="color:white;" class="label label-success">In Stock</span>
+                          </td>
+                        {% else %}
+                          <td class="">
+                            <span style="color:white;" class="label label-danger">Not Available</span>
+                          </td>
+                        {% endif %}
+                      <td class="">
+                        <a class="product-remove" href="{% url 'remove_wish_list' item.uid %}">Remove</a>
+                      </td>
+                        
+                    </tr>
+                    {% endfor %}
+
+                  </tbody>
+                </table>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+{% endblock content %}

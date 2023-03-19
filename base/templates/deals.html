@@ -1,0 +1,312 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+{% load static %}
+
+
+<!-- Begin Li's Breadcrumb Area -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Blog Left Sidebar</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Li's Breadcrumb Area End Here -->
+<!-- Begin Li's Main Blog Page Area -->
+<div class="li-main-blog-page pt-60 pb-55">
+    <div class="container">
+        <div class="row">
+            <!-- Begin Li's Blog Sidebar Area -->
+            <div class="col-lg-3 order-lg-1 order-2">
+                <div class="li-blog-sidebar-wrapper">
+                    <div class="li-blog-sidebar">
+                        <div class="li-sidebar-search-form">
+                            <form action="#">
+                                <input type="text" class="li-search-field" placeholder="search here">
+                                <button type="submit" class="li-search-btn"><i class="fa fa-search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="li-blog-sidebar pt-25">
+                        <h4 class="li-blog-sidebar-title">Categories</h4>
+                        <ul class="li-blog-archive">
+                            {% for category in categories %}
+                                <li><a href="http://127.0.0.1:8000/products/{{category.uid}}">{{category.name}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="li-blog-sidebar">
+                        <h4 class="li-blog-sidebar-title">Top visited products</h4>
+
+                        {% for product in items %}
+                        <div class="li-recent-post pb-30">
+                            <div class="li-recent-post-thumb">
+                                <a href="{% url 'productsInfo' product.uid %">
+                                    <img class="img-full" src="{{product.imgField}}" alt="Li's Product Image">
+                                </a>
+                            </div>
+                            <div class="li-recent-post-des">
+                                <span><a href="{% url 'productsInfo' product.uid %}">{{product.name}}</a></span>
+                                <span class="li-post-date"><i class="fa-solid fa-eye"></i> {{product.views}}</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                        
+                        
+                    </div>
+                    <div class="li-blog-sidebar">
+                        <h4 class="li-blog-sidebar-title">Tags</h4>
+                        <ul class="li-blog-tags">
+                            <li><a href="#">Gaming</a></li>
+                            <li><a href="#">Chromebook</a></li>
+                            <li><a href="#">Refurbished</a></li>
+                            <li><a href="#">Touchscreen</a></li>
+                            <li><a href="#">Ultrabooks</a></li>
+                            <li><a href="#">Sound Cards</a></li>  
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Li's Blog Sidebar Area End Here -->
+            <!-- Begin Li's Main Content Area -->
+            <div class="col-lg-9 order-lg-2 order-1">
+                <div class="row li-main-content">
+                    
+                    {% for onlyOfferProduct in onlyOfferProduct|slice:"4" %}
+                    <div class="col-lg-6 col-md-6">
+                        <div class="li-blog-single-item pb-25">
+                            <div class="li-blog-gallery-slider slick-dot-style">
+
+                                {% for img in images %}
+                                {% if img.productName.name == onlyOfferProduct.product.name %} 
+                                <div class="li-blog-banner">
+                                    <a href="{% url 'productsInfo' onlyOfferProduct.product.uid %}"><img class="img-full" src="{{img.images}}" alt="" width="40%" height="200px"></a>
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+
+                                
+                            </div>
+                            <div class="li-blog-content">
+                                <div class="li-blog-details">
+                                    <h3 class="li-blog-heading pt-25"><a href="{% url 'productsInfo' onlyOfferProduct.product.uid %}">{{onlyOfferProduct.product.name}}</a></h3>
+                                    <div class="li-blog-meta">
+                                        <a class="author" href="http://127.0.0.1:8000/products/{{onlyOfferProduct.product.category.uid}}"><i class="fa fa-user"></i>{{onlyOfferProduct.product.category.name}}</a>
+                                        <a class="comment" href="#"><i class="fa fa-comment-o"></i> 3 comment</a>
+                                        <a class="post-time" href="#"><i class="fa fa-calendar"></i>{{onlyOfferProduct.timeLeft}}</a>
+                                    </div>
+                                    <p>{{onlyOfferProduct.offerDescription}}</p>
+                                    <a class="read-more" href="{% url 'productsInfo' onlyOfferProduct.product.uid %}">Get Offer</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                    <!-- Begin Li's Pagination Area -->
+                    <!-- <div class="col-lg-12">
+                        <div class="li-paginatoin-area text-center pt-25">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <ul class="li-pagination-box">
+                                        <li><a class="Previous" href="#">Previous</a></li>
+                                        <li class="active"><a href="#">1</a></li>
+                                        <li><a href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a class="Next" href="#">Next</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!-- Li's Pagination End Here Area -->
+                </div>
+            </div>
+            <!-- Li's Main Content Area End Here -->
+        </div>
+    </div>
+</div>
+<!-- Li's Main Blog Page Area End Here -->
+
+<!-- Begin Li's Special Product Area -->
+<section class="product-area li-laptop-product Special-product pt-60 pb-45">
+    <div class="container">
+        <div class="row">
+            <!-- Begin Li's Section Area -->
+            <div class="col-lg-12">
+                <div class="li-section-title">
+                    <h2>
+                        <span>One Day Offer</span>
+                    </h2>
+                </div>
+                <div class="row">
+                    <div class="special-product-active owl-carousel">
+
+                        {% for offer in oneOffer %}
+                        <div class="col-lg-12">
+                            <!-- single-product-wrap start -->
+                            <div class="single-product-wrap">
+                                <div class="product-image">
+                                    <a href="{% url 'productsInfo' offer.product.uid %}">
+                                        <img src="{{ offer.product.imgField }}" alt="Li's Product Image" height="200px">
+                                    </a>
+                                    <span class="sticker">New</span>
+                                </div>
+                                <div class="product_desc">
+                                    <div class="product_desc_info">
+                                        <div class="product-review">
+                                            <h5 class="manufacturer">
+                                                <a href="http://127.0.0.1:8000/products/{{offer.product.category.uid}}">{{ offer.product.category.name }}</a>
+                                            </h5>
+                                            <div class="rating-box">
+                                                <ul class="rating">
+                                                    <li><i class="fa fa-star-o"></i></li>
+                                                    <li><i class="fa fa-star-o"></i></li>
+                                                    <li><i class="fa fa-star-o"></i></li>
+                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <h4><a class="product_name" href="{% url 'productsInfo' offer.product.uid %}">{{ offer.product.name }}</a></h4>
+                                        <div class="price-box">
+                                            <span class="new-price">${{ offer.product.price }}</span>
+                                        </div>
+                                        {% if offer.time_remaining <= 0 %}
+                                            <p class="countdown ended">Sale has ended</p>
+                                        {% else %}
+                                        <div class="countersection">
+                                            <div class="li-countdown">
+                                                <p class="countdown" data-time-remaining="{{ offer.time_remaining }}">Time remaining:<br>  
+                                                    <span class="count countdown-days"></span>
+                                                    <span class="count countdown-hours"></span>
+                                                    <span class="count countdown-minutes"></span>
+                                                    <span class="count countdown-seconds"></span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                            {% endif %}
+                                    </div>
+                                    <div class="add-actions">
+                                        <ul class="add-actions-link">
+                                            <li class="add-cart active"><a href="#">Add to cart</a></li>
+                                            <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
+                                            <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- single-product-wrap end -->
+                        </div>
+                        {% endfor %}
+                        
+
+                    </div>
+                </div>
+            </div>
+            <!-- Li's Section Area End Here -->
+        </div>
+    </div>
+</section>
+<!-- Begin Group Featured Product Area -->
+<div class="group-featured-product pt-60 pb-40 pb-xs-25">
+    <div class="container">
+        <div class="row">
+
+
+
+
+            {% for category, itemsT in products_by_category.items %}
+            <!-- Begin Featured Product Area -->
+            <div class="col-lg-4">
+                <div class="featured-product">
+                    <div class="li-section-title">
+                        <h2>
+                            <a href="{% url 'products' category.uid %}">{{category.name}}</a>
+                        </h2>
+                    </div>
+                    <div class="featured-product-active-2 owl-carousel">
+                        <div class="featured-product-bundle">
+
+                            {% for product in itemsT %}
+                            {% if product.category.name == category.name %}
+                            <div class="row">
+                                <div class="group-featured-pro-wrapper">
+                                    <div class="product-img">
+                                        <a href="{% url 'productsInfo' product.uid %}">
+                                            <img alt="" src="{{product.imgField}}" width="25%" height="20%">
+                                        </a>
+                                    </div>
+                                    <div class="featured-pro-content">
+                                        <div class="rating-box">
+                                            <ul class="rating">
+                                                <li><i class="fa fa-star-o"></i></li>
+                                                <li><i class="fa fa-star-o"></i></li>
+                                                <li><i class="fa fa-star-o"></i></li>
+                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                            </ul>
+                                        </div>
+                                        <h4><a class="featured-product-name" href="single-product.html">{{product.name}}</a></h4>
+                                        <div class="featured-price-box">
+                                            <span class="new-price">${{product.price}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+		                    {% endfor %}
+
+                            
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Featured Product Area End Here -->
+            {% endfor %}
+            
+
+
+
+        </div>
+    </div>
+</div>
+<!-- Group Featured Product Area End Here -->
+
+<script>
+    var countdowns = document.querySelectorAll('.countdown');
+    countdowns.forEach(function(countdown) {
+        console.log(countdown.dataset.timeRemaining); // Add this line
+        var daysEl = countdown.querySelector('.countdown-days');
+        var hoursEl = countdown.querySelector('.countdown-hours');
+        var minutesEl = countdown.querySelector('.countdown-minutes');
+        var secondsEl = countdown.querySelector('.countdown-seconds');
+
+        var timeRemaining = parseInt(countdown.dataset.timeRemaining);
+        setInterval(function() {
+            var days = Math.floor(timeRemaining / 86400);
+            var hours = Math.floor((timeRemaining % 86400) / 3600);
+            var minutes = Math.floor((timeRemaining % 3600) / 60);
+            var seconds = timeRemaining % 60;
+
+            daysEl.innerText = days;
+            hoursEl.innerText = hours;
+            minutesEl.innerText = minutes;
+            secondsEl.innerText = seconds;
+
+            timeRemaining -= 1;
+            if (timeRemaining <= 0) {
+                countdown.classList.add('ended');
+                countdown.innerHTML = 'Sale has ended';
+            }
+        }, 1000);
+    });
+</script>
+
+{% endblock content %}
