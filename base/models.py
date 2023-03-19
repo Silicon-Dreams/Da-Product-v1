@@ -52,7 +52,27 @@ class Category(BaseModel):
     # the name shown for the database at the admin panel
     class Meta:
         verbose_name_plural = "Category"
-        
+
+
+class sizeExtras(BaseModel):
+    size = models.CharField(max_length=100, null=False, blank=False)
+    
+    def __str__(self):
+        return self.size
+    
+    class Meta:
+        verbose_name_plural = "sizeExtras"
+
+
+class colorExtras(BaseModel):
+    color = models.CharField(max_length=100, null=False, blank=False)
+    hexCode = models.CharField(max_length=100, null=False, blank=False)
+    
+    def __str__(self):
+        return self.color
+    
+    class Meta:
+        verbose_name_plural = "colorExtras"
         
 class Products(BaseModel):
     class GenreChoices(models.TextChoices):
@@ -75,6 +95,8 @@ class Products(BaseModel):
     forDisplay = models.BooleanField(default=False)
     related_products = models.ManyToManyField('self', blank=True)
     views = models.IntegerField(default=0)
+    sizeExtras = models.ManyToManyField(sizeExtras,blank=True)
+    colorExtras = models.ManyToManyField(colorExtras,blank=True)
     quantity = models.PositiveIntegerField(default=1)
     
     def __str__(self):
@@ -177,6 +199,7 @@ class CartItems(BaseModel):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name="cart_items")
     item = models.ForeignKey(Products, on_delete=models.SET_NULL, null=True, blank=True)
     quantity = models.PositiveIntegerField(default=1)
+    size = models.CharField(max_length=50)
     
     def get_item_price(self):
         price = [(self.item.price * self.quantity)]

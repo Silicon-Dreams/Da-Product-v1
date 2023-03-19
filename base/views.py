@@ -76,8 +76,11 @@ def productsInfo(request, pk):
     
     # relatedProducts = Products.objects.filter(category = categoryName)[random.randint(0, int((len_products/2))):random.randint( int(((len_products/2)+1)), int((len_products+1)))]
     related_products = item.get_related_products()
+
+    productSize = item.sizeExtras.all()
+    productColor = item.colorExtras.all()
     
-    context = {'item': item, 'images':images, 'products': related_products}
+    context = {'item': item, 'images':images, 'products': related_products,'productSize':productSize,'productColor':productColor}
     
     # if Cart.objects.get(user = request.user):
     #     context = {'item': item, 'images':images, 'products': relatedProducts[:4], 'cart':Cart.objects.get(user = request.user)}
@@ -297,6 +300,9 @@ def add_to_cart(request, uid):
     quantity = 1
     if request.method=="POST":
         quantity = int(request.POST.get('quantity'))
+        selected_size = request.POST.get('selected_size')
+        print(selected_size)
+
     # if quantity > item.quantity:
     #     messages.error(request, 'Insufficient quantity.')
     #     return redirect('productsInfo', pk=item.uid)
@@ -304,6 +310,7 @@ def add_to_cart(request, uid):
     cart , _ = Cart.objects.get_or_create(user = user)
     cart_item = CartItems.objects.create(cart=cart, item=item, )
     cart_item.quantity = quantity
+    cart_item.size = selected_size
     
     cart_item.save()
     

@@ -13,5 +13,6 @@ admin.site.register(SpecialOffer)
 admin.site.register(CartItems)
 admin.site.register(Coupon)
 admin.site.register(OneDayOffer)
-
+admin.site.register(sizeExtras)
+admin.site.register(colorExtras)
 
