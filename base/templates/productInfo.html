@@ -86,30 +86,136 @@
                                 </span>
                             </p>
                         </div>
-                        <div class="product-variants">
-                            <div class="produt-variants-size">
-                                <label>Dimension</label>
-                                <select class="nice-select">
-                                    <option value="1" title="S" selected="selected">40x60cm</option>
-                                    <option value="2" title="M">60x90cm</option>
-                                    <option value="3" title="L">80x120cm</option>
-                                </select>
-                            </div>
-                        </div>
+
+
+
+                         <!-- SIZEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE -->
+
+                         
+
+
+                     <!-- SIZEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE -->
+
+                     <br>
+
+                     <!-- COLORRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
+
+                     
+
+                     
+
+                     <!-- COLORRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
+
+
+
+
                         <div class="single-add-to-cart">
                             <form method="post" action="{% url 'add_to_cart' uid=item.uid %}">
                                 {% csrf_token %}
+
+                                {% if productSize %}
+                                    <div class="product-size">
+                                        <label for="size-select">Size:</label>
+                                        <select id="size-select" name="selected_size">
+                                        {% for size in productSize %}
+                                            <option value="{{ size }}">{{ size }}</option>
+                                        {% endfor %}
+                                        </select>
+                                    </div>
+                                {% endif %}
+
+                                <br>
+
+                                {% if productColor %}
+                                    <div class="product-variants">
+                                        <div class="produt-variants-size">
+                                        <label>Color:</label>
+                                        {% for color in productColor %}
+                                            <a
+                                            class="product-colors {% if color == selectedColor %}activee{% endif %}" style="
+                                            display: inline-block;
+                                            align-items: center;
+                                            width: 32px;
+                                            height: 32px;
+                                            border-radius: 50%;
+                                            margin-right: 8px;
+                                            cursor: pointer;
+                                            border: 5px solid #ddd;
+                                            background-color: #{{ color.hexCode }};"></a>
+                                        {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                                <br>
+
+
+
                                 <div class="quantity">
-                                    <label>Quantity</label>
+                                    <label style="margin-top: 10px;">Quantity</label>
                                     <div class="cart-plus-minus">
                                         <input type="number" name="quantity" id="quantity" value="1" min="1" max="10"class="cart-plus-minus-box" value="1" type="text">
                                         <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
                                         <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                     </div>
                                 </div>
+                                <br>
                                 <button class="btn btn-primary" type="submit">Add to Cart</button>
                             </form>
                         </div>
+
+
+
+
+
+
+
+
+                        <!-- SCRIPT AND STYLES -->
+
+                        <style>
+                            .activee{
+                                border: 2px solid #000 !important;
+                            }
+
+                            .product-size label {
+                                 display: block;
+                                 margin-bottom: 8px;
+                                 }
+
+                                 .product-size select {
+                                 display: block;
+                                 width: 100%;
+                                 padding: 8px;
+                                 font-size: 16px;
+                                 border: 1px solid #ddd;
+                                 border-radius: 4px;
+                                 background-color: #fff;
+                                 }
+
+                                 .product-size select option {
+                                 padding: 8px;
+                                 font-size: 16px;
+                                 background-color: #fff;
+                                 color: #333;
+                                 }
+                        </style>
+   
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                        <script>
+                            $(document).ready(function () {
+                            $('.product-colors').click(function () {
+                                $('.product-colors').removeClass('activee');
+                                $(this).addClass('activee');
+                            });
+                            });
+                        </script>
+                        
+                        <!-- SCRIPT AND STYLES -->
+
+
+
+
                         <div class="product-additional-info pt-25">
                             <a class="wishlist-btn" href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a>
                             <div class="product-social-sharing pt-25">
