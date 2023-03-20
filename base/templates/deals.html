@@ -294,5 +294,38 @@
 </div>
 <!-- Group Featured Product Area End Here -->
 
+<script>
+    var countdowns = document.querySelectorAll('.countdown');
+    countdowns.forEach(function(countdown) {
+        console.log(countdown.dataset.timeRemaining); // Add this line
+        var daysEl = countdown.querySelector('.countdown-days');
+        var hoursEl = countdown.querySelector('.countdown-hours');
+        var minutesEl = countdown.querySelector('.countdown-minutes');
+        var secondsEl = countdown.querySelector('.countdown-seconds');
+
+        var timeRemaining = parseInt(countdown.dataset.timeRemaining);
+        setInterval(function() {
+            var days = Math.floor(timeRemaining / 86400);
+            var hours = Math.floor((timeRemaining % 86400) / 3600);
+            var minutes = Math.floor((timeRemaining % 3600) / 60);
+            var seconds = timeRemaining % 60;
+
+            daysEl.innerText = days;
+            hoursEl.innerText = hours;
+            minutesEl.innerText = minutes;
+            secondsEl.innerText = seconds;
+
+            timeRemaining -= 1;
+            if (timeRemaining <= 0) {
+                countdown.classList.add('ended');
+                countdown.innerHTML = 'Sale has ended';
+            }
+        }, 1000);
+    });
+</script>
+
+
+
+
 
 {% endblock content %}

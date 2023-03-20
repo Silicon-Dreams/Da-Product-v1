@@ -1,11 +1,4 @@
-{% extends 'main.html' %}
-
-
-{% block content %}
-{% load static %}
-
 <!-- Begin Li's Breadcrumb Area -->
-
 <div class="breadcrumb-area">
     <div class="container">
         <div class="breadcrumb-content">
@@ -18,64 +11,90 @@
 </div>
 <!-- Li's Breadcrumb Area End Here -->
 <!-- content-wraper start -->
+
+
+
+<style>
+    .product-image {
+        max-height: 200px; /* Set the maximum height to 300 pixels or adjust to fit your needs */
+        object-fit: contain;
+        object-position: center;
+    }
+</style>
+
+<!-- 
+<script>
+    function setMaxHeight() {
+        var images = document.getElementsByClassName('product-image');
+        for (var i = 0; i < images.length; i++) {
+          var imageSrc = images[i].getAttribute('src');
+          var image = new Image();
+          image.src = imageSrc;
+          image.onload = function() {
+            var height = this.naturalHeight;
+            var width = this.naturalWidth;
+            var ratio = height / width;
+            var maxHeight = 150; // Set the maximum height to 300 pixels or adjust to fit your needs
+            var newHeight = maxHeight < height ? maxHeight : height;
+            var newWidth = newHeight / ratio;
+            images[i].style.maxHeight = maxHeight + 'px';
+            images[i].style.height = newHeight + 'px';
+            images[i].style.width = newWidth + 'px';
+            console.log("helloodd");
+          };
+        }
+      }
+</script> -->
+
 <div class="content-wraper">
     <div class="container">
         <div class="row single-product-area">
-
             <div class="col-lg-5 col-md-6">
                <!-- Product Details Left -->
-                <div class="product-details-left sp-tab-style-left-page">
+                <div class="product-details-left">
                     <div class="product-details-images slider-navigation-1">
                         <div class="lg-image">
                             <a class="popup-img venobox vbox-item" href="{{item.imgField}}" data-gall="myGallery">
-                                <img src="{{item.imgField}}" alt="product image">
+                                <img src="{{item.imgField}}" alt="product image" class="product-image">
                             </a>
                         </div>
+
+                        
+
+
+
                         {% for img in images %}
                         {% if img.productName.name == item.name %}
-                        <div class="lg-image">
+                        <div class="sm-image">
                             <a class="popup-img venobox vbox-item" href="{{img.images}}" data-gall="myGallery">
-                                <img src="{{img.images}}" alt="product image">
+                                <center>
+                                <img src="{{img.images}}" alt="product image" class="product-image">
+                            </center>
                             </a>
                         </div>
                         {% endif %}
                         {% endfor %}
+                        
                     </div>
-                    <div class="tab-style-left">
-                        <div class="sm-image"><img src="{{item.imgField}}" alt="product image thumb"></div>
+                    <div class="product-details-thumbs slider-thumbs-1" style="margin-top: 24px;margin-left: -36px;">    
+                        <div class="sm-image"><img src="{{item.imgField}}" alt="product image thumb" class="product-image"></div> 
                         {% for img in images %}
-                        {% if img.productName.name == item.name %}  
-                        <div class="sm-image"><img src="{{img.images}}" alt="product image thumb"></div>
+                        {% if img.productName.name == item.name %}                                   
+                        <!-- <div class="sm-image"><img src="{{img.images}}" alt="product image thumb" class="product-image"></div> -->
+                        <div class="sm-image" >
+                            <a class="popup-img venobox vbox-item" href="{{img.images}}" data-gall="myGallery">
+                                <center>
+                                    <img src="{{img.images}}" alt="product image" class="product-image">
+                                </center>
+                            </a>
+                        </div>
                         {% endif %}
                         {% endfor %}
                     </div>
                 </div>
                 <!--// Product Details Left -->
             </div>
-
-            <style>
-                .product-details-images img {
-                        margin-top: 25%;
-                        width: 100%;
-                        max-height: 400px;
-                        height: auto;
-                        object-fit: contain;
-                    }
-
-                    .tab-style-left {
-                        margin-top: 15%;
-                    }
-
-                    .tab-style-left .sm-image img {
-                        width: 100%;
-                        max-height: 100px;
-                        height: auto;
-                        object-fit: cover;
-                    }
-            </style>
-
-
-
+            
             <div class="col-lg-7 col-md-6">
                 <div class="product-details-view-content pt-60">
                     <div class="product-info">
@@ -94,47 +113,27 @@
                         </div>
                         {% if item.isSale %}
                             <div class="price-box pt-20">
-                                <span class="new-price new-price-2" style="margin-right: 1%;">${{item.salePrice}}</span>
-                                <span style="text-decoration: line-through;margin-right: 1%;" class="old-price"><b>${{item.price}}</b></span>
-                                <span class="discount-percentage" style="color:green"> <b> {{item.get_discount_percentage}}% OFF</b></span>
+                                <span class="new-price new-price-2">${{item.salePrice}}</span>
+                                <span class="old-price">${{item.price}}</span>
+                                <span class="discount-percentage">{{item.get_discount_percentage}}%</span>
                             </div>                 
                         {% else %}
                             <div class="price-box pt-20">
                                 <span class="new-price">${{item.price}}</span>
                             </div>
                         {% endif %}
-
-
                         <div class="product-desc">
                             <p>
                                 <span>{{item.bio}}
                                 </span>
                             </p>
                         </div>
-
-                        <!-- <div class="product-variants">
-                            <div class="produt-variants-size">
-                                <label>Dimension</label>
-                                <select class="nice-select">
-                                    <option value="1" title="S" selected="selected">40x60cm</option>
-                                    <option value="2" title="M">60x90cm</option>
-                                    <option value="3" title="L">80x120cm</option>
-                                </select>
-                            </div>
-                        </div> -->
-
-
-
-
-
+                        <br>
                         <div class="single-add-to-cart">
-
                             {% if request.user.is_authenticated %}
-                            <form method="post" action="{% url 'add_to_cart' uid=item.uid %}" class="cart-quantity">
+                            <form method="post" action="{% url 'add_to_cart' uid=item.uid %}">
                                 {% csrf_token %}
 
-
-                                <!-- Product Size -->
                                 {% if productSize %}
                                     <div class="product-size">
                                         <label for="size-select">Size:</label>
@@ -145,9 +144,9 @@
                                         </select>
                                     </div>
                                 {% endif %}
-                                <!-- Product Size -->
 
-                                <!-- Product Color -->
+                                <br>
+
                                 {% if productColor %}
                                     <div class="product-variants">
                                         <div class="produt-variants-size">
@@ -168,73 +167,27 @@
                                         </div>
                                     </div>
                                 {% endif %}
-                                <!-- Product Color -->
+
+                                <br>
 
 
 
                                 <div class="quantity">
-                                    <label>Quantity</label>
+                                    <label style="margin-top: 10px;">Quantity</label>
                                     <div class="cart-plus-minus">
-                                        <input class="cart-plus-minus-box" type="number" name="quantity" id="quantity" value="1" min="1" max="10"class="cart-plus-minus-box" value="1">
+                                        <input type="number" name="quantity" id="quantity" value="1" min="1" max="10"class="cart-plus-minus-box" value="1">
                                         <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
                                         <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                     </div>
                                 </div>
-                                <button class="add-to-cart" type="submit">Add to cart</button>
+                                <br>
+                                <button class="btn btn-primary" type="submit">Add to Cart</button>
                             </form>
                             {% else %}
-                            <!-- Product Color -->
-                            {% if productColor %}
-                            <div class="product-variants">
-                                <div class="produt-variants-size">
-                                <label>Color:</label>
-                                {% for color in productColor %}
-                                    <a
-                                    class="product-colors {% if color == selectedColor %}activee{% endif %}" style="
-                                    display: inline-block;
-                                    align-items: center;
-                                    width: 32px;
-                                    height: 32px;
-                                    border-radius: 50%;
-                                    margin-right: 8px;
-                                    cursor: pointer;
-                                    border: 5px solid #ddd;
-                                    background-color: #{{ color.hexCode }};"></a>
-                                {% endfor %}
-                                </div>
-                            </div>
-                        {% endif %}
-                        <!-- Product Color -->
-                            <!-- Product Size -->
-                            {% if productSize %}
-                                <div class="product-size">
-                                    <label for="size-select">Size:</label>
-                                    <select id="size-select" name="selected_size">
-                                    {% for size in productSize %}
-                                        <option value="{{ size }}">{{ size }}</option>
-                                    {% endfor %}
-                                    </select>
-                                </div>
-                            {% endif %}
-                        <!-- Product Size -->
-                            <div class="cart-quantity">
-                                <div class="quantity">
-                                    <label>Quantity</label>
-                                    <div class="cart-plus-minus">
-                                        <input class="cart-plus-minus-box" type="number" name="quantity" id="quantity" value="1" min="1" max="10"class="cart-plus-minus-box" value="1">
-                                        <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                        <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                    </div>
-                                </div>
-                                <button class="add-to-cart"><a href="{% url 'signUp' %}">Add to cart</a></button>
-                            </div>
+                                <a href="{% url 'signUp' %}" class="btn btn-primary">Add to Cart</a>
                             {% endif %}
                         </div>
-
-
-
-
-                         <!-- SCRIPT AND STYLES -->
+                        <!-- SCRIPT AND STYLES -->
                         <style>
                             .activee{
                                 border: 2px solid #000 !important;
@@ -274,14 +227,6 @@
                         </script>
                         
                         <!-- SCRIPT AND STYLES -->
-
-
-
-
-
-
-
-
                         <div class="product-additional-info pt-25">
                             <a class="wishlist-btn" {% if request.user.is_authenticated %} href="{% url 'add_to_wish_list' item.uid %}" {% else %} href="/signUp" {% endif %}><i class="fa fa-heart-o"></i>Add to wishlist</a>
                             <div class="product-social-sharing pt-25">
@@ -293,8 +238,6 @@
                                 </ul>
                             </div>
                         </div>
-
-
 
                         <div class="block-reassurance">
                             <ul>
@@ -354,24 +297,11 @@
             </div>
             <div id="product-details" class="tab-pane" role="tabpanel">
                 <div class="product-details-manufacturer">
-
-                    <!-- https://assets6.lottiefiles.com/private_files/lf30_qcellpy3.json -->
-
-                    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-                        
-
                     <a href="#">
-
-                        <lottie-player src="https://assets6.lottiefiles.com/private_files/lf30_qcellpy3.json"  background="transparent" class="img-fluid" width="25%"  speed="1"  style="width: 300px; height: 300px;"  loop autoplay></lottie-player>
-
-                        <!-- <img src="{% static 'images/product-details/1.jpg' %}" alt="Product Manufacturer Image"> -->
+                        <img src="{% static 'images/product-details/1.jpg' %}" alt="Product Manufacturer Image">
                     </a>
-
-
-
-
-                    <center><p>Our  <span>{{item.name}}</span>Will be shipped fast</p></center>
-                    <center><p><span>Shipped With quality and love.</span> </p></center>
+                    <p><span>Reference</span> demo_7</p>
+                    <p><span>Reference</span> demo_7</p>
                 </div>
             </div>
             <div id="reviews" class="tab-pane" role="tabpanel">
@@ -388,12 +318,12 @@
                             </ul>
                         </div>
                         <div class="comment-author-infos pt-25">
-                            <span>Perfecto Tripal</span>
-                            <em>3-20-2023</em>
+                            <span>HTML 5</span>
+                            <em>01-12-18</em>
                         </div>
                         <div class="comment-details">
-                            <h4 class="title-block">Silicon</h4>
-                            <p>Dreams</p>
+                            <h4 class="title-block">Demo</h4>
+                            <p>Plaza</p>
                         </div>
                         <div class="review-btn">
                             <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">Write Your Review!</a>
@@ -407,7 +337,7 @@
                                         <div class="modal-inner-area row">
                                             <div class="col-lg-6">
                                                <div class="li-review-product">
-                                                   <img src="{% static 'images/product/large-size/3.jpg' %}" alt="Li's Product">
+                                                   <img src="images/product/large-size/3.jpg" alt="Li's Product">
                                                    <div class="li-review-product-desc">
                                                        <p class="li-product-name">Today is a good day Framed poster</p>
                                                        <p>
@@ -493,28 +423,17 @@
                         <div class="col-lg-12">
                             <!-- single-product-wrap start -->
                             <div class="single-product-wrap">
-                                <div class="product-image" >
+                                <div class="product-image">
                                     <a href="#">
-                                        <div class="product-img" style="background-image: url('{{product.imgField}}')">
-                                        </div>
+                                        <img src="{{product.imgField}}" alt="Li's Product Image">
                                     </a>
                                     <span class="sticker">New</span>
                                 </div>
-                                <style>
-                                    .product-img{
-                                        width: 100%;
-                                        max-height: 200px;
-                                        height: 300px;
-                                        background-size: contain;
-                                        background-position: center;
-                                        background-repeat: no-repeat;
-                                    }
-                                </style>
                                 <div class="product_desc">
                                     <div class="product_desc_info">
                                         <div class="product-review">
                                             <h5 class="manufacturer">
-                                                <a href="{% url 'products' product.category.uid %}">{{product.category.name}}</a>
+                                                <a href="product-details.html">{{product.category.name}}</a>
                                             </h5>
                                             <div class="rating-box">
                                                 <ul class="rating">
@@ -526,16 +445,16 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <h4><a class="product_name" href="{% url 'productsInfo' product.uid %}">{{product.name}}</a></h4>
+                                        <h4><a class="product_name" href="#">{{product.name}}</a></h4>
                                         <div class="price-box">
                                             <span class="new-price">${{product.price}}</span>
                                         </div>
                                     </div>
                                     <div class="add-actions">
                                         <ul class="add-actions-link">
-                                            <li class="add-cart active"><a {% if request.user.is_authenticated %} href="{% url 'add_to_cart' product.uid %}" {% else %} href="/signUp" {% endif %}>Add to cart</a></li>
+                                            <li class="add-cart active"><a href="#">Add to cart</a></li>
                                             <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                            <li><a class="links-details" {% if request.user.is_authenticated %} href="{% url 'add_to_wish_list' product.uid %}" {% else %} href="/signUp" {% endif %}><i class="fa fa-heart-o"></i></a></li>
+                                            <li><a class="links-details" href="#"><i class="fa fa-heart-o"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -543,6 +462,8 @@
                             <!-- single-product-wrap end -->
                         </div>
                         {% endfor %}
+                       
+                        </div>
                     </div>
                 </div>
             </div>
@@ -551,13 +472,3 @@
     </div>
 </section>
 <!-- Li's Laptop Product Area End Here -->
-
-
-
-
-
-
-
-
-
-{% endblock content %}

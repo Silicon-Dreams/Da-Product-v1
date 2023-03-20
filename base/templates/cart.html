@@ -5,7 +5,6 @@
 {% load static %}
 
 
-
 <!-- Begin Li's Breadcrumb Area -->
 <div class="breadcrumb-area">
     <div class="container">
@@ -34,7 +33,7 @@
                                     <th class="li-product-remove">remove</th>
                                     <th class="li-product-thumbnail">images</th>
                                     <th class="cart-product-name">Product</th>
-                                    <th class="li-product-price">Unit Size</th>
+                                    <!-- <th class="li-product-price">Unit Size</th> -->
                                     <th class="li-product-price">Unit Price</th>
                                     <th class="li-product-quantity">Quantity</th>
                                     <th class="li-product-subtotal">Total</th>
@@ -47,7 +46,7 @@
                                     <td class="li-product-remove"><a href="{% url 'remove_cart' item.uid %}"><i class="fa fa-times"></i></a></td>
                                     <td class="li-product-thumbnail" style="width: 20%;"><a href="#"><img src="{{item.item.imgField}}" alt="Li's Product Image" style="width: 50%;"></a></td>
                                     <td class="li-product-name"><a href="{% url 'productsInfo' item.item.uid %}">{{item.item.name}}</a></td>
-                                    <td class="li-product-price"><span class="amount">{{item.size}}</span></td>
+                                    <!-- <td class="li-product-price"><span class="amount">{{item.size}}</span></td> -->
                                     <td class="li-product-price"><span class="amount">${{item.item.price}}</span></td>
                                     <td class="quantity">
                                         <label>{{item.quantity}} x ${{item.item.price}}</label>
