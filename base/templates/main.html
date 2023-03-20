@@ -61,7 +61,7 @@
                             <div class="col-lg-3 col-md-4">
                                 <div class="header-top-left">
                                     <ul class="phone-wrap">
-                                        <li><span>Location: </span><a href="#">USA</a></li>
+                                        <li><span>Location: </span><a href="#">Cairo,Egypt</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -95,14 +95,15 @@
                                         {% else %}
                                         <li>
                                             <div class="ht-setting-list">
-                                                <a href="/signUp">Sign Up</a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ht-setting-list">
                                                 <a href="/logIn">Log In</a>
                                             </div>                                         
                                         </li>
+                                        <li>
+                                            <div class="ht-setting-list">
+                                                <a href="/signUp">Sign Up</a>
+                                            </div>
+                                        </li>
+                                        
                                         {% endif %}
 
                                         <!-- Setting Area End Here -->
@@ -146,7 +147,7 @@
                             <div class="col-lg-3">
                                 <div class="head-logo logo pb-sm-30 pb-xs-30" >
                                     <a href="/" >
-                                        <img class="header-img" src="images/menu/logo/tripal-header.png" alt="">
+                                        <img class="header-img" src="{% static 'images/menu/logo/tripal-header.png' %}" alt="">
                                         <style>
                                             .head-logo{
                                                 margin-top:-50px;
@@ -346,7 +347,7 @@
                                                     <li><a href="index-4.html">Home Four</a></li>
                                                 </ul> -->
                                             </li>
-                                            <li class="megamenu-holder"><a href="#">Category</a>
+                                            <li class="megamenu-holder"><a class="caty" href="#">Category</a>
                                                 <ul class="megamenu hb-megamenu">
                                                     <li>
                                                         <ul>
@@ -415,7 +416,8 @@
                                 <div class="col-lg-3 col-md-6 col-sm-6 pb-sm-55 pb-xs-55">
                                     <div class="li-shipping-inner-box">
                                         <div class="shipping-icon">
-                                            <img src="images/shipping-icon/1.png" alt="Shipping Icon">
+                                            <img src="{% static 'images/shipping-icon/1.png' %}" alt="Shipping Icon">
+                                            
                                         </div>
                                         <div class="shipping-text">
                                             <h2>Free Delivery</h2>
@@ -428,7 +430,7 @@
                                 <div class="col-lg-3 col-md-6 col-sm-6 pb-sm-55 pb-xs-55">
                                     <div class="li-shipping-inner-box">
                                         <div class="shipping-icon">
-                                            <img src="images/shipping-icon/2.png" alt="Shipping Icon">
+                                            <img src="{% static 'images/shipping-icon/2.png' %}" alt="Shipping Icon">
                                         </div>
                                         <div class="shipping-text">
                                             <h2>Safe Payment</h2>
@@ -441,7 +443,7 @@
                                 <div class="col-lg-3 col-md-6 col-sm-6 pb-xs-30">
                                     <div class="li-shipping-inner-box">
                                         <div class="shipping-icon">
-                                            <img src="images/shipping-icon/3.png" alt="Shipping Icon">
+                                            <img src="{% static 'images/shipping-icon/3.png' %} " alt="Shipping Icon">
                                         </div>
                                         <div class="shipping-text">
                                             <h2>Shop with Confidence</h2>
@@ -454,7 +456,7 @@
                                 <div class="col-lg-3 col-md-6 col-sm-6 pb-xs-30">
                                     <div class="li-shipping-inner-box">
                                         <div class="shipping-icon">
-                                            <img src="images/shipping-icon/4.png" alt="Shipping Icon">
+                                            <img src="{% static 'images/shipping-icon/4.png' %}" alt="Shipping Icon">
                                         </div>
                                         <div class="shipping-text">
                                             <h2>24/7 Help Center</h2>
@@ -479,7 +481,7 @@
                                     <div class="footer-logo">
 
                                         <a href="/">
-                                            <img src="images/menu/logo/Tripal-footer.png" style="margin-left:70px;" alt="Footer Logo">
+                                            <img src="{% static 'images/menu/logo/Tripal-footer.png' %}" style="margin-left:70px;" alt="Footer Logo">
                                         </a>
                                         
 
@@ -502,7 +504,7 @@
                                         
                                         
                                         <p class="info">
-                                            We are a team of designers and developers that create high quality HTML Template & Woocommerce, Shopify Theme.
+                                            A team of experts dedicated to helping businesses stay ahead of the curve with their knowledge of cutting-edge technologies
                                         </p>
                                     </div>
                                     <ul class="des">
