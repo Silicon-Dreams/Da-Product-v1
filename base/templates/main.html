@@ -656,6 +656,13 @@
             </div>
             <!-- Footer Area End Here -->
             <!-- Begin Quick View | Modal Area -->
+
+            <style>
+                .product-image {
+                    max-height: 200px; /* Set the maximum height to 300 pixels or adjust to fit your needs */
+                    object-fit: contain;
+                }
+            </style>
             {% for i in items.qs %}
             <div class="modal fade modal-wrapper" id="exampleModalCenter-{{forloop.counter}}" >
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -670,7 +677,7 @@
                                     <div class="product-details-left">
                                         <div class="product-details-images slider-navigation-1">
                                             <div class="lg-image">
-                                                <img src="{{ i.imgField }}" alt="product image">
+                                                <img src="{{ i.imgField }}" alt="product image" class="product-image">
                                             </div>
                                             <!-- <div class="lg-image">
                                                 <img src="images/product/large-size/2.jpg" alt="product image">

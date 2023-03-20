@@ -17,6 +17,15 @@
     </div>
 </div>
 <!-- Li's Breadcrumb Area End Here -->
+
+<style>
+    .product-image {
+        max-height: 200px; /* Set the maximum height to 300 pixels or adjust to fit your needs */
+        object-fit: contain;
+        object-position: center;
+    }
+</style>
+
 <!-- Begin Li's Main Blog Page Area -->
 <div class="li-main-blog-page pt-60 pb-55">
     <div class="container">
@@ -82,12 +91,16 @@
                         <div class="li-blog-single-item pb-25">
                             <div class="li-blog-gallery-slider slick-dot-style">
                                 <div class="li-blog-banner">
-                                    <a href="{% url 'productsInfo' onlyOfferProduct.product.uid %}"><img class="img-full" src="{{onlyOfferProduct.product.imgField}}" alt="" width="40%" height="200px"></a>
+                                    <center>
+                                    <a href="{% url 'productsInfo' onlyOfferProduct.product.uid %}"><img  src="{{onlyOfferProduct.product.imgField}}" alt="" class="product-image"></a>
+                                </center>
                                 </div>
                                 {% for img in images %}
                                 {% if img.productName.name == onlyOfferProduct.product.name %} 
                                 <div class="li-blog-banner">
-                                    <a href="{% url 'productsInfo' onlyOfferProduct.product.uid %}"><img class="img-full" src="{{img.images}}" alt="" width="40%" height="200px"></a>
+                                    <center>
+                                    <a href="{% url 'productsInfo' onlyOfferProduct.product.uid %}"><img  src="{{img.images}}" alt="" class="product-image"></a>
+                                </center>
                                 </div>
                                 {% endif %}
                                 {% endfor %}
@@ -102,7 +115,7 @@
                                         <a class="comment" href="#"><i class="fa fa-comment-o"></i> 3 comment</a>
                                         <a class="post-time" href="#"><i class="fa fa-calendar"></i>{{onlyOfferProduct.timeLeft}}</a>
                                     </div>
-                                    <p>{{onlyOfferProduct.offerDescription}}</p>
+                                    <p>{{onlyOfferProduct.offerDescription|slice:":200"}}...</p>
                                     <a class="read-more" href="{% url 'productsInfo' onlyOfferProduct.product.uid %}">Get Offer</a>
                                 </div>
                             </div>
@@ -155,7 +168,7 @@
                             <div class="single-product-wrap">
                                 <div class="product-image">
                                     <a href="{% url 'productsInfo' offer.product.uid %}">
-                                        <img src="{{ offer.product.imgField }}" alt="Li's Product Image" height="200px">
+                                        <img src="{{ offer.product.imgField }}" alt="Li's Product Image" class="product-image">
                                     </a>
                                     <span class="sticker">New</span>
                                 </div>
@@ -241,7 +254,7 @@
                                 <div class="group-featured-pro-wrapper">
                                     <div class="product-img">
                                         <a href="{% url 'productsInfo' product.uid %}">
-                                            <img alt="" src="{{product.imgField}}" width="25%" height="20%">
+                                            <img alt="" src="{{product.imgField}}" class="product-image">
                                         </a>
                                     </div>
                                     <div class="featured-pro-content">
@@ -281,34 +294,5 @@
 </div>
 <!-- Group Featured Product Area End Here -->
 
-<script>
-    var countdowns = document.querySelectorAll('.countdown');
-    countdowns.forEach(function(countdown) {
-        console.log(countdown.dataset.timeRemaining); // Add this line
-        var daysEl = countdown.querySelector('.countdown-days');
-        var hoursEl = countdown.querySelector('.countdown-hours');
-        var minutesEl = countdown.querySelector('.countdown-minutes');
-        var secondsEl = countdown.querySelector('.countdown-seconds');
-
-        var timeRemaining = parseInt(countdown.dataset.timeRemaining);
-        setInterval(function() {
-            var days = Math.floor(timeRemaining / 86400);
-            var hours = Math.floor((timeRemaining % 86400) / 3600);
-            var minutes = Math.floor((timeRemaining % 3600) / 60);
-            var seconds = timeRemaining % 60;
-
-            daysEl.innerText = days;
-            hoursEl.innerText = hours;
-            minutesEl.innerText = minutes;
-            secondsEl.innerText = seconds;
-
-            timeRemaining -= 1;
-            if (timeRemaining <= 0) {
-                countdown.classList.add('ended');
-                countdown.innerHTML = 'Sale has ended';
-            }
-        }, 1000);
-    });
-</script>
 
 {% endblock content %}

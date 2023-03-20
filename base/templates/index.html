@@ -94,6 +94,14 @@
 </div>
 <!-- Static Top Area End Here -->
 
+<style>
+    .product-image {
+        max-height: 200px; /* Set the maximum height to 300 pixels or adjust to fit your needs */
+        object-fit: contain;
+    }
+</style>
+
+
 
 
 <!-- Begin Product Area -->
@@ -122,7 +130,7 @@
                             <div class="single-product-wrap">
                                 <div class="product-image">
                                     <a href="{% url 'productsInfo' product.uid %}">
-                                        <img src="{{product.imgField}}"s alt="Li's Product Image" height="200px">
+                                        <img src="{{product.imgField}}"s alt="Li's Product Image" class="product-image">
                                     </a>
                                     <span class="sticker">New</span>
                                 </div>

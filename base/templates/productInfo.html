@@ -17,6 +17,41 @@
 </div>
 <!-- Li's Breadcrumb Area End Here -->
 <!-- content-wraper start -->
+
+
+
+<style>
+    .product-image {
+        max-height: 200px; /* Set the maximum height to 300 pixels or adjust to fit your needs */
+        object-fit: contain;
+        object-position: center;
+    }
+</style>
+
+<!-- 
+<script>
+    function setMaxHeight() {
+        var images = document.getElementsByClassName('product-image');
+        for (var i = 0; i < images.length; i++) {
+          var imageSrc = images[i].getAttribute('src');
+          var image = new Image();
+          image.src = imageSrc;
+          image.onload = function() {
+            var height = this.naturalHeight;
+            var width = this.naturalWidth;
+            var ratio = height / width;
+            var maxHeight = 150; // Set the maximum height to 300 pixels or adjust to fit your needs
+            var newHeight = maxHeight < height ? maxHeight : height;
+            var newWidth = newHeight / ratio;
+            images[i].style.maxHeight = maxHeight + 'px';
+            images[i].style.height = newHeight + 'px';
+            images[i].style.width = newWidth + 'px';
+            console.log("helloodd");
+          };
+        }
+      }
+</script> -->
+
 <div class="content-wraper">
     <div class="container">
         <div class="row single-product-area">
@@ -26,38 +61,37 @@
                     <div class="product-details-images slider-navigation-1">
                         <div class="lg-image">
                             <a class="popup-img venobox vbox-item" href="{{item.imgField}}" data-gall="myGallery">
-                                <img src="{{item.imgField}}" alt="product image" class="pro-img">
+                                <img src="{{item.imgField}}" alt="product image" class="product-image">
                             </a>
                         </div>
 
-                        <style>
-                            .pro-img {
-                                max-height: 500px;
-                                height: auto;
-                            }
-                        </style>
+                        
 
 
 
-                        <!-- {% for img in images %}
+                        {% for img in images %}
                         {% if img.productName.name == item.name %}
                         <div class="sm-image">
                             <a class="popup-img venobox vbox-item" href="{{img.images}}" data-gall="myGallery">
-                                <img src="{{img.images}}" alt="product image">
+                                <center>
+                                <img src="{{img.images}}" alt="product image" class="product-image">
+                            </center>
                             </a>
                         </div>
                         {% endif %}
-                        {% endfor %} -->
+                        {% endfor %}
                         
                     </div>
                     <div class="product-details-thumbs slider-thumbs-1" style="margin-top: 24px;margin-left: -36px;">    
-                        <div class="sm-image"><img src="{{item.imgField}}" alt="product image thumb"></div> 
+                        <div class="sm-image"><img src="{{item.imgField}}" alt="product image thumb" class="product-image"></div> 
                         {% for img in images %}
                         {% if img.productName.name == item.name %}                                   
-                        <!-- <div class="sm-image"><img src="{{img.images}}" alt="product image thumb"></div> -->
+                        <!-- <div class="sm-image"><img src="{{img.images}}" alt="product image thumb" class="product-image"></div> -->
                         <div class="sm-image" >
                             <a class="popup-img venobox vbox-item" href="{{img.images}}" data-gall="myGallery">
-                                <img src="{{img.images}}" alt="product image">
+                                <center>
+                                    <img src="{{img.images}}" alt="product image" class="product-image">
+                                </center>
                             </a>
                         </div>
                         {% endif %}
@@ -67,7 +101,7 @@
                 </div>
                 <!--// Product Details Left -->
             </div>
-
+            
             <div class="col-lg-7 col-md-6">
                 <div class="product-details-view-content pt-60">
                     <div class="product-info">

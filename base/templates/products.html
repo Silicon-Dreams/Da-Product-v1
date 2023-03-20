@@ -28,6 +28,37 @@
 	}
 </style>
 
+<style>
+    .product-image {
+        max-height: 200px; /* Set the maximum height to 300 pixels or adjust to fit your needs */
+        object-fit: contain;
+    }
+</style>
+
+
+<script>
+    function setMaxHeight() {
+        var images = document.getElementsByClassName('product-image');
+        for (var i = 0; i < images.length; i++) {
+          var imageSrc = images[i].getAttribute('src');
+          var image = new Image();
+          image.src = imageSrc;
+          image.onload = function() {
+            var height = this.naturalHeight;
+            var width = this.naturalWidth;
+            var ratio = height / width;
+            var maxHeight = 150; // Set the maximum height to 300 pixels or adjust to fit your needs
+            var newHeight = maxHeight < height ? maxHeight : height;
+            var newWidth = newHeight / ratio;
+            images[i].style.maxHeight = maxHeight + 'px';
+            images[i].style.height = newHeight + 'px';
+            images[i].style.width = newWidth + 'px';
+            console.log("helloodd");
+          };
+        }
+      }
+</script>
+
 <!-- Begin Li's Breadcrumb Area -->
 <div class="breadcrumb-area">
     <div class="container">
@@ -97,7 +128,7 @@
                                         <div class="single-product-wrap">
                                             <div class="product-image">
                                                 <a href="{% url 'productsInfo' item.uid %}">
-                                                    <img src="{{item.imgField}}" alt="Li's Product Image">
+                                                    <img src="{{item.imgField}}" alt="Li's Product Image" class="product-image">
                                                 </a>
                                                 <span class="sticker">New</span>
                                             </div>
@@ -155,7 +186,7 @@
                                         <div class="col-lg-3 col-md-5 ">
                                             <div class="product-image">
                                                 <a href="{% url 'productsInfo' item.uid %}">
-                                                    <img src="{{item.imgField}}" alt="Li's Product Image">
+                                                    <img src="{{item.imgField}}" alt="Li's Product Image" class="product-image">
                                                 </a>
                                                 <span class="sticker">New</span>
                                             </div>
