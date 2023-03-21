@@ -347,17 +347,38 @@
                                                     <li><a href="index-4.html">Home Four</a></li>
                                                 </ul> -->
                                             </li>
-                                            <li class="megamenu-holder"><a class="caty" href="#">Category</a>
-                                                <ul class="megamenu hb-megamenu">
-                                                    <li>
-                                                        <ul>
-                                                            {% for categoryNav in categoriesNav %}
-                                                            <li><a href="/products/{{categoryNav.uid}}">{{categoryNav.name}}</a></li>
-                                                            {% endfor %}
-                                                        </ul>
-                                                    </li>                                        
+
+
+                                            <li class="dropdown-holder"><a class="caty" href="/">Category</a>
+                                                <ul class="hb-dropdown">
+                                                    {% for categoryNav in categoriesNav %}
+                                                        <li><a href="/products/{{categoryNav.uid}}">{{categoryNav.name}}</a></li>
+                                                    {% endfor %}
                                                 </ul>
                                             </li>
+
+
+                                            
+                                            <!-- <li class="megamenu-holder">
+                                                <a class="caty" href="#">Category</a>
+                                                <ul class="megamenu hb-megamenu">
+                                                  <li>
+                                                    <ul>
+                                                      {% for categoryNav in categoriesNav %}
+                                                      <li><a href="/products/{{categoryNav.uid}}">{{categoryNav.name}}</a></li>
+                                                      {% endfor %}
+                                                    </ul>
+                                                  </li>
+                                                </ul>
+                                            </li> -->
+
+                                              
+                                              
+
+
+
+
+
                                             <li><a href="#">About Us</a></li>
                                             <li><a href="#">Contact</a></li>
                                             <li><a href="/deals" style="color: red; margin: 0 15px;">Deals</a></li>
