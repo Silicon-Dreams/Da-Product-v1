@@ -66,6 +66,8 @@ def products(request, pk):
     return render(request, "products.html", context)
 
 
+from django.db.models import Count
+from django.db.models import Q
 
 def productsInfo(request, pk):
     item = Products.objects.get(uid = pk)
@@ -80,13 +82,22 @@ def productsInfo(request, pk):
     productSize = item.sizeExtras.all()
     productColor = item.colorExtras.all()
     
-    reviews = Review.objects.filter(product=item).order_by('-created_at')[:3]
+    reviews = Review.objects.filter(product=item).order_by('-created_at')
     num_reviews = reviews.count()
     average_rating = item.get_average_rating()
     if request.method == 'POST':
         add_review(request, pk)
+        
+    rating_summary = reviews.aggregate(
+        star1=Count('rating', filter=Q(rating=1)),
+        star2=Count('rating', filter=Q(rating=2)),
+        star3=Count('rating', filter=Q(rating=3)),
+        star4=Count('rating', filter=Q(rating=4)),
+        star5=Count('rating', filter=Q(rating=5)),
+    )
+
     
-    context = {'average_rating': average_rating, 'num_reviews': num_reviews, 'reviews':reviews, 'item': item, 'images':images, 'products': related_products,'productSize':productSize,'productColor':productColor}
+    context = {'rating_summary': rating_summary, 'average_rating': average_rating, 'num_reviews': num_reviews, 'reviews':reviews, 'item': item, 'images':images, 'products': related_products,'productSize':productSize,'productColor':productColor}
     
     # if Cart.objects.get(user = request.user):
     #     context = {'item': item, 'images':images, 'products': relatedProducts[:4], 'cart':Cart.objects.get(user = request.user)}

@@ -6,6 +6,13 @@
 {% load custom_filters %}
 <!-- Begin Li's Breadcrumb Area -->
 
+<style>
+    .product-image {
+        max-height: 200px; /* Set the maximum height to 300 pixels or adjust to fit your needs */
+        object-fit: contain;
+    }
+</style>
+
 <div class="breadcrumb-area">
     <div class="container">
         <div class="breadcrumb-content">
@@ -95,8 +102,8 @@
                                 <li><i class="fa fa-star-o"></i></li>
                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                 <li class="no-star"><i class="fa fa-star-o"></i></li> -->
-                                <li class="review-item"><a href="#">Read Review</a></li>
-                                <li class="review-item"><a href="#">Write Review</a></li>
+                                <li class="review-item"><a href="#description">Read Review</a></li>
+                                <li class="review-item"><a href="#description">Write Review</a></li>
                             </ul>
                         </div>
                         {% if item.isSale %}
@@ -403,8 +410,8 @@
                             {% endfor %}
                         </div> -->
 
-                        <div class="product-rating">
-                            <div class="product-rating">
+                        <!-- <div class="product-rating">
+                            <span class="product-rating">
                                 {% for i in "12345" %}
                                     {% if forloop.counter0 < average_rating %}
                                         <i class="fas fa-star"></i>
@@ -412,47 +419,343 @@
                                         <i class="far fa-star"></i>
                                     {% endif %}
                                 {% endfor %}
-                                <!-- <span class="num-reviews">{{ reviews.count }} reviews</span> -->
-                            </div>
-
-                            <!-- <span class="stars">{{ average_rating|floatformat:1 }}</span> -->
-                            <span class="rating-value">{{ average_rating|floatformat:1 }}</span>
-                            <div class="num-reviews">Number of Reviews: {{ num_reviews }} reviews</div>
+                                <span class="num-reviews">{{ reviews.count }} reviews</span>
+                            </span>
                         </div>
-                        <div class="product-reviews">
-                            <h2>Recent Reviews</h2>
-                            {% if reviews %}
-                            <ul>
-                                {% for review in reviews.all %}
-                                <li>
+                       
+                        <style>
+                            .product-rating .rating-value {
+                                margin-left: 10px;
+                            }
+                            .product-rating .fas {
+                                color: #f8e825;
+                            }
+                            .product-rating .far {
+                                color: #f8e825;
+                            }
+                        </style> -->
+
+                        <div class="rating-summary">
+                            <div class="overall-rating">
+                              <span class="stars">{{ reviews.all|average_rating|floatformat:1 }}</span>
+                              <span class="star-icon">&#9733;</span>
+                              <span class="ratings-count">{{ reviews.all|length }} ratings</span>
+                            </div>
+                          </div>
+
+                          <style>
+
+                           
+                              
+                              .rating-summary .overall-rating {
+                                display: flex;
+                                align-items: center;
+                              }
+                              
+                              .rating-summary .stars {
+                                color: #ffc107;
+                                font-size: 24px;
+                                margin-right: 10px;
+                              }
+                              
+                              .rating-summary .star-icon {
+                                font-size: 24px;
+                                color: #aaa;
+                                margin-right: 5px;
+                              }
+                              
+                              .rating-summary .ratings-count {
+                                font-size: 18px;
+                                color: #aaa;
+                              }
+                              
+                              .rating-summary .rating-breakdown {
+                                display: flex;
+                                align-items: center;
+                                margin-top: 10px;
+                              }
+                              
+                              .rating-summary .rating-item {
+                                display: flex;
+                                align-items: center;
+                                margin-right: 20px;
+                              }
+                              
+                              .rating-summary .rating-stars {
+                                font-size: 14px;
+                                color: #aaa;
+                                margin-right: 5px;
+                              }
+                              
+                              .rating-summary .star-filled {
+                                color: #ffc107;
+                              }
+                              
+                              .rating-summary .star-empty {
+                                color: #ccc;
+                              }
+
+
+                              .rating-summary {
+                                display: flex;
+                                flex-direction: column;
+                              }
+                              
+                              .rating-summary h3 {
+                                margin-bottom: 10px;
+                                font-size: 16px;
+                                font-weight: bold;
+                              }
+                              
+                              .rating-summary ul {
+                                list-style: none;
+                                padding: 0;
+                                margin: 0;
+                              }
+                              
+                              .rating-summary li {
+                                display: flex;
+                                align-items: center;
+                                margin-bottom: 5px;
+                              }
+                              
+                              .rating-summary .star-rating {
+                                display: flex;
+                                align-items: center;
+                                margin-right: 10px;
+                              }
+                              
+                              .rating-summary .star-rating i {
+                                color: #FFD700;
+                                font-size: 16px;
+                                margin-right: 5px;
+                              }
+                              
+                              .rating-summary .star-rating .empty-star {
+                                color: #D2D2D2;
+                              }
+                              
+                              .rating-summary .count {
+                                font-size: 14px;
+                                color: #666666;
+                              }
+
+
+
+                              .rating-summary {
+                                display: flex;
+                                flex-direction: row;
+                                justify-content: space-between;
+                                align-items: center;
+                                margin-bottom: 20px;
+                              }
+                              
+                              .rating-summary ul {
+                                list-style: none;
+                                margin: 0;
+                                padding: 0;
+                                display: flex;
+                                flex-direction: row;
+                              }
+                              
+                              .rating-summary li {
+                                margin-right: 10px;
+                              }
+                              
+                              .rating-summary .star-rating {
+                                display: flex;
+                                flex-direction: row;
+                                align-items: center;
+                              }
+                              
+                              .rating-summary .star-rating i.fas.fa-star {
+                                color: #F44336;
+                              }
+                              
+                              .rating-summary .star-rating.star-2 i.fas.fa-star {
+                                color: #FF9800;
+                              }
+                              
+                              .rating-summary .star-rating.star-3 i.fas.fa-star {
+                                color: #FFEB3B;
+                              }
+                              
+                              .rating-summary .star-rating.star-4 i.fas.fa-star {
+                                color: #80ae04;
+                              }
+                              
+                              .rating-summary .star-rating.star-5 i.fas.fa-star {
+                                color: #4CAF50;
+                              }
+                              
+                              .rating-summary .star-rating i.far.fa-star.empty-star {
+                                color: #ddd;
+                                margin-right: 5px;
+                              }
+                              
+                              .rating-summary .star-rating .count {
+                                margin-left: 5px;
+                                font-size: 14px;
+                              }
+                            </style>
+
+                            <div class="rating-summary">
+                                <h3>Rating Summary</h3>
+                                <ul>
+                                  <li>
+                                    <div class="star-rating star-5">
+                                          <i class="fas fa-star"></i>
+                                          <i class="fas fa-star"></i>
+                                          <i class="fas fa-star"></i>
+                                          <i class="fas fa-star"></i>
+                                          <i class="fas fa-star"></i>
+                                      <i class="count">({{ rating_summary.star5 }})</i>
+                                    </div>
+                                  </li>
+                                  <li>
+                                    <div class="star-rating star-4"> 
+                                          <i class="fas fa-star"></i>
+                                          <i class="fas fa-star"></i>
+                                          <i class="fas fa-star"></i>
+                                          <i class="fas fa-star"></i>
+                                          <i class="far fa-star empty-star"></i>
+                                        <i class="count">({{ rating_summary.star4 }})</i>
+                                    </div>
+                                  </li>
+                                  <li>
+                                    <div class="star-rating star-3">
+                                          <i class="fas fa-star"></i>
+                                          <i class="fas fa-star"></i>
+                                          <i class="fas fa-star"></i>
+                                          <i class="far fa-star empty-star"></i>
+                                          <i class="far fa-star empty-star"></i>
+                                      <i class="count">({{ rating_summary.star3 }})</i>
+                                    </div>
+                                  </li>
+                                  <li>
+                                    <div class="star-rating star-2">
+                                          <i class="fas fa-star"></i>
+                                          <i class="fas fa-star"></i>
+                                          <i class="far fa-star empty-star"></i>
+                                          <i class="far fa-star empty-star"></i>
+                                          <i class="far fa-star empty-star"></i>
+                                        <i class="count">({{ rating_summary.star2 }})</i>
+                                    </div>
+                                  </li>
+                                  <li>
+                                    <div class="star-rating">
+                                          <i class="fas fa-star"></i>
+                                          <i class="far fa-star empty-star"></i>
+                                          <i class="far fa-star empty-star"></i>
+                                          <i class="far fa-star empty-star"></i>
+                                          <i class="far fa-star empty-star"></i>
+                                          <i class="count">({{ rating_summary.star1 }})</i>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+
+                        
+                            <div class="product-reviews">
+                                
+                                <h2>Recent Reviews</h2>
+                                {% if reviews %}
+                                <ul>
+                                  {% for review in reviews|slice:"3" %}
+                                  <li style="border-bottom: 1px solid #ccc;">
                                     <div class="review-header">
-                                        <span class="stars">{{ review.rating_stars }}</span>
+                                      <div class="profile-pic">{{ review.user.username|first }}</div>
+                                      <div class="review-details">
                                         <span class="review-user">{{ review.user.username }}</span>
                                         <span class="review-date">{{ review.created_at|date:"F j, Y" }}</span>
+                                      </div>
                                     </div>
-                                    
+                                    <div class="stars">
+                                      {% for i in "12345" %}
+                                      {% if forloop.counter0 < review.rating %}
+                                      <i class="fas fa-star"></i>
+                                      {% else %}
+                                      <i class="far fa-star"></i>
+                                      {% endif %}
+                                      {% endfor %}
+                                    </div>
                                     <div class="review-text">{{ review.text }}</div>
-                                </li>
-                                {% endfor %}
-                            </ul>
-                            {% else %}
-                            <p>No reviews yet.</p>
-                            {% endif %}
-                        </div>
+                                  </li>
+                                  {% endfor %}
+                                </ul>
+                                {% endif %}
+                              </div>
+
+                        <!-- style product-reviews section  -->
+                        <style>                       
+                              .product-reviews h2 {
+                                font-size: 24px;
+                                font-weight: bold;
+                                margin-bottom: 20px;
+                              }
+
+                              .product-reviews .profile-pic {
+                                width: 50px;
+                                height: 50px;
+                                border-radius: 50%;
+                                background-color: #ccc;
+                                color: #fff;
+                                font-size: 24px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                margin-right: 10px;
+                              }
+                              
+                              .product-reviews ul {
+                                list-style: none;
+                                padding-left: 0;
+                              }
+                              
+                              .product-reviews li {
+                                
+                                padding: 20px 0;
+                              }
+                              
+                              .product-reviews .review-header {
+                                display: flex;
+                                align-items: center;
+                                margin-bottom: 10px;
+                              }
+                              
+                              .product-reviews .stars {
+                                color: #ffc107;
+                                margin-right: 10px;
+                              }
+                              
+                              .product-reviews .review-user {
+                                font-weight: bold;
+                                margin-right: 10px;
+                              }
+                              
+                              .product-reviews .review-date {
+                                color: #aaa;
+                              }
+                              
+                              .product-reviews .review-text {
+                                margin-top: 10px;
+                                line-height: 1.5;
+                              }
+                        </style>
 
                         <div class="comment-author-infos pt-25">
                             <span>Perfecto Tripal</span>
                             <em>3-20-2023</em>
                         </div>
                         <div class="comment-details">
-                            <h4 class="title-block">Silicon</h4>
-                            <p>Dreams</p>
+                            <h4 class="title-block">Silicon Dreams</h4>
+                            <!-- <p>Dreams</p> -->
                         </div>
                         <div class="review-btn">
                             <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">Write Your Review!</a>
                         </div>
 
-                        <form method="post" action="{% url 'add_review' pk=item.uid %}">
+                        <!-- <form method="post" action="{% url 'add_review' pk=item.uid %}">
                             {% csrf_token %}
                             <label for="rating">Rating:</label>
                             <input type="number" name="rating" id="rating" min="1" max="5" required>
@@ -461,7 +764,7 @@
                             <textarea name="text" id="text" required></textarea>
                             <br>
                             <input type="submit" value="Submit Review">
-                        </form>
+                        </form> -->
 
                         <!-- Begin Quick View | Modal Area -->
                         <div class="modal fade modal-wrapper" id="mymodal" >
@@ -472,11 +775,11 @@
                                         <div class="modal-inner-area row">
                                             <div class="col-lg-6">
                                                <div class="li-review-product">
-                                                   <img src="{% static 'images/product/large-size/3.jpg' %}" alt="Li's Product">
+                                                   <img src="{{item.imgField}}" alt="Li's Product" class="product-image">
                                                    <div class="li-review-product-desc">
-                                                       <p class="li-product-name">Today is a good day Framed poster</p>
+                                                       <p class="li-product-name">{{item.name}}</p>
                                                        <p>
-                                                           <span>Beach Camera Exclusive Bundle - Includes Two Samsung Radiant 360 R3 Wi-Fi Bluetooth Speakers. Fill The Entire Room With Exquisite Sound via Ring Radiator Technology. Stream And Control R3 Speakers Wirelessly With Your Smartphone. Sophisticated, Modern Design </span>
+                                                           <span>{{item.description}}</span>
                                                        </p>
                                                    </div>
                                                </div>
@@ -487,7 +790,17 @@
                                                     <div class="feedback-area">
                                                         <div class="feedback">
                                                             <h3 class="feedback-title">Our Feedback</h3>
-                                                            <form action="#">
+                                                            <form method="post" action="{% url 'add_review' pk=item.uid %}">
+                                                                {% csrf_token %}
+                                                                <label for="rating">Rating:</label>
+                                                                <input type="number" name="rating" id="rating" min="1" max="5" required>
+                                                                <br>
+                                                                <label for="text">Review:</label>
+                                                                <textarea name="text" id="text" required></textarea>
+                                                                <br>
+                                                                <input type="submit" value="Submit Review">
+                                                            </form>
+                                                            <!-- <form action="#">
                                                                 <p class="your-opinion">
                                                                     <label>Your Rating</label>
                                                                     <span>
@@ -521,7 +834,7 @@
                                                                         <a href="#">Submit</a>
                                                                     </div>
                                                                 </div>
-                                                            </form>
+                                                            </form> -->
                                                         </div>
                                                     </div>
                                                     <!-- Feedback Area End Here -->

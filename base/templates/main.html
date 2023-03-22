@@ -735,13 +735,20 @@
                                             <span class="product-details-ref">{{ i.category.name }}</span>
                                             <div class="rating-box pt-20">
                                                 <ul class="rating rating-with-review-item">
-                                                    <li><i class="fa fa-star-o"></i></li>
+                                                    {% for j in "12345" %}
+                                                        {% if forloop.counter0 < i.get_average_rating %}
+                                                            <li><i class="fa fa-star-o"></i></li>
+                                                        {% else %}
+                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                    <!-- <li><i class="fa fa-star-o"></i></li>
                                                     <li><i class="fa fa-star-o"></i></li>
                                                     <li><i class="fa fa-star-o"></i></li>
                                                     <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                     <li class="no-star"><i class="fa fa-star-o"></i></li>
                                                     <li class="review-item"><a href="#">Read Review</a></li>
-                                                    <li class="review-item"><a href="#">Write Review</a></li>
+                                                    <li class="review-item"><a href="#">Write Review</a></li> -->
                                                 </ul>
                                             </div>
                                             <div class="price-box pt-20">

@@ -140,11 +140,15 @@
                                                         </h5>
                                                         <div class="rating-box">
                                                             <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <ul class="rating">
+                                                                    {% for i in "12345" %}
+                                                                        {% if forloop.counter0 < item.get_average_rating %}
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                        {% else %}
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                </ul>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -200,11 +204,15 @@
                                                         </h5>
                                                         <div class="rating-box">
                                                             <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                <ul class="rating">
+                                                                    {% for i in "12345" %}
+                                                                        {% if forloop.counter0 < item.get_average_rating %}
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                        {% else %}
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                </ul>
                                                             </ul>
                                                         </div>
                                                     </div>

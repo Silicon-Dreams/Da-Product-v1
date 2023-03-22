@@ -13,3 +13,11 @@ def stars(value):
 @register.filter
 def float(value):
     return float(value)
+
+@register.filter
+def average_rating(reviews):
+    ratings = [review.rating for review in reviews]
+    if len(ratings) > 0:
+        return sum(ratings) / len(ratings)
+    else:
+        return 0
