@@ -3,7 +3,7 @@
 
 {% block content %}
 {% load static %}
-
+{% load custom_filters %}
 <!-- Begin Li's Breadcrumb Area -->
 
 <div class="breadcrumb-area">
@@ -83,11 +83,18 @@
                         <span class="product-details-ref">{{item.category.name}}</span>
                         <div class="rating-box pt-20">
                             <ul class="rating rating-with-review-item">
-                                <li><i class="fa fa-star-o"></i></li>
+                                {% for i in "12345" %}
+                                    {% if forloop.counter0 < average_rating %}
+                                        <li><i class="fa fa-star-o"></i></li>
+                                    {% else %}
+                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                    {% endif %}
+                                {% endfor %}
+                                <!-- <li><i class="fa fa-star-o"></i></li>
                                 <li><i class="fa fa-star-o"></i></li>
                                 <li><i class="fa fa-star-o"></i></li>
                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                <li class="no-star"><i class="fa fa-star-o"></i></li> -->
                                 <li class="review-item"><a href="#">Read Review</a></li>
                                 <li class="review-item"><a href="#">Write Review</a></li>
                             </ul>
@@ -377,7 +384,7 @@
             <div id="reviews" class="tab-pane" role="tabpanel">
                 <div class="product-reviews">
                     <div class="product-details-comment-block">
-                        <div class="comment-review">
+                        <!-- <div class="comment-review">
                             <span>Grade</span>
                             <ul class="rating">
                                 <li><i class="fa fa-star-o"></i></li>
@@ -386,7 +393,53 @@
                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                             </ul>
+                        </div> -->
+
+                        <!-- <div class="rating">
+                            <span>Grade</span>
+                            {% for reviews in reviews.all %}
+                                <span class="stars">{{ reviews.rating_stars }}</span>
+                                <span class="rating-value">{{ reviews.rating }}</span>
+                            {% endfor %}
+                        </div> -->
+
+                        <div class="product-rating">
+                            <div class="product-rating">
+                                {% for i in "12345" %}
+                                    {% if forloop.counter0 < average_rating %}
+                                        <i class="fas fa-star"></i>
+                                    {% else %}
+                                        <i class="far fa-star"></i>
+                                    {% endif %}
+                                {% endfor %}
+                                <!-- <span class="num-reviews">{{ reviews.count }} reviews</span> -->
+                            </div>
+
+                            <!-- <span class="stars">{{ average_rating|floatformat:1 }}</span> -->
+                            <span class="rating-value">{{ average_rating|floatformat:1 }}</span>
+                            <div class="num-reviews">Number of Reviews: {{ num_reviews }} reviews</div>
                         </div>
+                        <div class="product-reviews">
+                            <h2>Recent Reviews</h2>
+                            {% if reviews %}
+                            <ul>
+                                {% for review in reviews.all %}
+                                <li>
+                                    <div class="review-header">
+                                        <span class="stars">{{ review.rating_stars }}</span>
+                                        <span class="review-user">{{ review.user.username }}</span>
+                                        <span class="review-date">{{ review.created_at|date:"F j, Y" }}</span>
+                                    </div>
+                                    
+                                    <div class="review-text">{{ review.text }}</div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% else %}
+                            <p>No reviews yet.</p>
+                            {% endif %}
+                        </div>
+
                         <div class="comment-author-infos pt-25">
                             <span>Perfecto Tripal</span>
                             <em>3-20-2023</em>
@@ -398,6 +451,18 @@
                         <div class="review-btn">
                             <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">Write Your Review!</a>
                         </div>
+
+                        <form method="post" action="{% url 'add_review' pk=item.uid %}">
+                            {% csrf_token %}
+                            <label for="rating">Rating:</label>
+                            <input type="number" name="rating" id="rating" min="1" max="5" required>
+                            <br>
+                            <label for="text">Review:</label>
+                            <textarea name="text" id="text" required></textarea>
+                            <br>
+                            <input type="submit" value="Submit Review">
+                        </form>
+
                         <!-- Begin Quick View | Modal Area -->
                         <div class="modal fade modal-wrapper" id="mymodal" >
                             <div class="modal-dialog modal-dialog-centered" role="document">

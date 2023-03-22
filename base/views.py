@@ -80,13 +80,18 @@ def productsInfo(request, pk):
     productSize = item.sizeExtras.all()
     productColor = item.colorExtras.all()
     
-    context = {'item': item, 'images':images, 'products': related_products,'productSize':productSize,'productColor':productColor}
+    reviews = Review.objects.filter(product=item).order_by('-created_at')[:3]
+    num_reviews = reviews.count()
+    average_rating = item.get_average_rating()
+    if request.method == 'POST':
+        add_review(request, pk)
+    
+    context = {'average_rating': average_rating, 'num_reviews': num_reviews, 'reviews':reviews, 'item': item, 'images':images, 'products': related_products,'productSize':productSize,'productColor':productColor}
     
     # if Cart.objects.get(user = request.user):
     #     context = {'item': item, 'images':images, 'products': relatedProducts[:4], 'cart':Cart.objects.get(user = request.user)}
     
     return render(request, "productInfo.html", context)
-
 
 
 def logIn(request):
@@ -443,4 +448,17 @@ def deals(request):
     
     return render(request, 'deals.html', context)
 
+
+
+
+def add_review(request, pk):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            rating = request.POST['rating']
+            text = request.POST['text']
+            product = Products.objects.get(uid=pk)
+            review = Review.objects.create(user=request.user, product=product, rating=rating, text=text)
+            return redirect('productsInfo', pk=pk)
+    else:
+        return redirect('logIn')
 

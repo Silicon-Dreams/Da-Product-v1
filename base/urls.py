@@ -26,4 +26,5 @@ urlpatterns = [
     path('remove-coupon/<cart_uid>/', views.remove_coupon, name="remove_coupon"),
     path('checkout', views.checkout, name='checkout'),
 
+    path('productsInfo/<pk>/add_review/', views.add_review, name='add_review'),
 ]

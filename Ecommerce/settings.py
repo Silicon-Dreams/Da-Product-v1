@@ -74,6 +74,10 @@ TEMPLATES = [
                 'base.context_processors.cart_item',
                 'base.context_processors.categoriesNav',
             ],
+            'libraries':{
+            'custom_filters': 'base.custom_filters',
+            
+            }
         },
     },
 ]

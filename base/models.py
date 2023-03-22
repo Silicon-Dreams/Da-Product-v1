@@ -111,6 +111,14 @@ class Products(BaseModel):
             return int(discount)
         else:
             return 0
+        
+        
+    def get_average_rating(self):
+        reviews = Review.objects.filter(product=self)
+        if reviews.count() == 0:
+            return 0
+        else:
+            return sum(review.rating for review in reviews) / reviews.count()
     
     class Meta:
         verbose_name_plural = "Products"
@@ -230,3 +238,19 @@ class OneDayOffer(models.Model):
     
     class Meta:
         verbose_name_plural = "One Day Offer"
+
+
+    
+class Review(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    rating = models.FloatField()
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def rating_stars(self):
+        full_stars = int(self.rating)
+        half_stars = int(round(self.rating - full_stars))
+        empty_stars = 5 - full_stars - half_stars
+        return '★' * full_stars + '☆' * half_stars + '☆' * empty_stars
