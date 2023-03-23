@@ -27,4 +27,6 @@ urlpatterns = [
     path('checkout', views.checkout, name='checkout'),
 
     path('productsInfo/<pk>/add_review/', views.add_review, name='add_review'),
+    path('search/', views.search, name='search'),
+    path('no-results/', views.no_results, name='no_results'),
 ]

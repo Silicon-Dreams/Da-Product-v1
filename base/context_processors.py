@@ -1,6 +1,11 @@
 from base.models import *
 
 
+def products(request):
+        products = Products.objects.all()
+        return {'products': products}
+
+
 def cart_item_count(request):
         if request.user.is_authenticated:
                 x = CartItems.objects.filter(cart__isPaid = False, cart__user=request.user).count()

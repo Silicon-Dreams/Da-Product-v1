@@ -5,56 +5,52 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-<section class="page-header">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="content">
-					<h1 class="page-name">Dashboard</h1>
-					<ol class="breadcrumb">
-						<li><a href="index.html">Home</a></li>
-						<li class="active">my account</li>
-					</ol>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
+<!-- Begin Li's Breadcrumb Area -->
+<div class="breadcrumb-area">
+  <div class="container">
+      <div class="breadcrumb-content">
+          <ul>
+              <li><a href="/">Home</a></li>
+              <li class="active">Profile</li>
+          </ul>
+      </div>
+  </div>
+</div>
+<!-- Li's Breadcrumb Area End Here -->
 <section class="user-dashboard page-wrapper">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
         <ul class="list-inline dashboard-menu text-center">
-          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a class="active" href="/profile">Dashboard</a></li>
           <li><a href="order.html">Orders</a></li>
-          <li><a href="/editProfile">Edit Profile</a></li>
-          <li><a class="active" href="/profile">Profile Details</a></li>
+          <li><a href="/editProfile">Shopping Info</a></li>
         </ul>
-        <div class="dashboard-wrapper dashboard-user-profile">
+        <div class="dashboard-wrapper user-dashboard">
           <div class="media">
-            <div class="pull-left text-center" href="#!">
-              <img class="media-object user-img" src="{{userInfo.image.url}}" alt="Image">
-              <a href="/editProfile" class="btn btn-transparent mt-20">Change Image</a>
+            <div class="pull-left text-center" href="#!" style="margin-right: 20px;">
+              <img class="media-object user-img" src="{{userInfo.image.url}}" alt="Profile Picture"><br>
+              <a href="/editProfile" class="btn btn-outline-primary mt-20">Change Profile Picture</a>
             </div>
             <div class="media-body">
+              <h2 class="user-name">{{request.user}}</h2>
               <ul class="user-profile-list">
-                <li><span>Full Name:</span>{{request.user}}</li>
-                <li><span>First Name:</span>{{request.user.first_name}}</li>
-                <li><span>Last Name:</span>{{request.user.last_name}}</li>
-                <li><span>Country:</span>{{userInfo.country}}</li>
-                <li><span>Email:</span>{{request.user.email}}</li>
-                <li><span>Phone:</span>+{{userInfo.phoneNumber}}</li>
+                <li><span class="user-profile-label">Full Name:</span>{{request.user}}</li>
+                <li><span class="user-profile-label">First Name:</span>{{request.user.first_name}}</li>
+                <li><span class="user-profile-label">Last Name:</span>{{request.user.last_name}}</li>
+                <li><span class="user-profile-label">Country:</span>{{userInfo.country}}</li>
+                <li><span class="user-profile-label">Email:</span>{{request.user.email}}</li>
+                <li><span class="user-profile-label">Phone:</span>+{{userInfo.phoneNumber}}</li>
                 {% if userInfo.gender == "male" %}                 
-                  <li><span>Gender:</span><i class="tf-ion-male" style="margin-right: 5px;"></i>{{userInfo.gender}}</li>
+                  <li><span class="user-profile-label">Gender:</span><i class="tf-ion-male" style="margin-right: 5px;"></i>{{userInfo.gender}}</li>
                 {% elif userInfo.gender == "female" %}       
-                  <li></span><span>Gender:</span><i class="tf-ion-female" style="margin-right: 5px;"></i>{{userInfo.gender}}</li>
+                  <li></span><span class="user-profile-label">Gender:</span><i class="tf-ion-female" style="margin-right: 5px;"></i>{{userInfo.gender}}</li>
                 {% endif %}
-                <li><a href="edit-profile-main" class="btn btn-main btn-small btn-round">Edit Profile</a></li>
-                <li><a href="password" class="btn btn-main btn-small btn-round">Change Password</a></li>
               </ul>
-
-              
-
+              <div class="user-profile-actions">
+                <a href="edit-profile-main" class="btn btn-primary">Edit Profile</a>
+                <a href="password" class="btn btn-outline-primary">Change Password</a>
+              </div>
             </div>
           </div>
         </div>
@@ -62,5 +58,105 @@
     </div>
   </div>
 </section>
+
+
+<style>
+  /* Style the user dashboard menu */
+.dashboard-menu {
+  margin-bottom: 30px;
+}
+
+.dashboard-menu li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.dashboard-menu li a {
+  color: #777;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 14px;
+  padding: 10px;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.dashboard-menu li a:hover,
+.dashboard-menu li a.active {
+  color: #fff;
+  background-color: #fed700;
+}
+
+/* Style the user profile page */
+.user-dashboard {
+  padding: 50px 0;
+  background-color: #f7f7f7;
+}
+
+.dashboard-user-profile {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 30px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.user-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  margin-bottom: 20px;
+}
+
+.user-name {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.user-profile-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.user-profile-list li {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.user-profile-label {
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.user-profile-actions {
+  margin-top: 30px;
+}
+
+.btn-primary {
+  background-color: #fed700;
+  border-color: #fed700;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: black;
+  color: white;
+  border-color: black;
+}
+
+.btn-outline-primary {
+  color: black;
+  border-color: #fed700;;
+}
+
+.btn-outline-primary:hover {
+  background-color: #fed700;
+  color: white;
+  border-color: #fed700;;
+}
+</style>
+
 
 {% endblock content %}

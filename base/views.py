@@ -1,4 +1,5 @@
 
+from urllib.parse import urlencode
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import authenticate, login, logout
@@ -35,6 +36,9 @@ from django.views import generic
 
 
 
+
+
+
 def home(request):
     categories = Category.objects.all()
     items = Products.objects.filter(forDisplay=True)
@@ -58,12 +62,18 @@ def products(request, pk):
     items_filter = ListingFilter(request.GET, queryset=items)
     # images = MultipleImage.objects.all()
     
+    # if 'name__icontains' in request.GET:
+        # name_filter = django_filters.CharFilter(field_name='name', lookup_expr='icontains')
+        # items_filter.filters['name__icontains'] = name_filter
+    
     context = {"items": items_filter}
     
     # if Cart.objects.get(user = request.user):
     #     context = {"items": items_filter, 'cart':Cart.objects.get(user = request.user)}
         
     return render(request, "products.html", context)
+
+
 
 
 from django.db.models import Count
@@ -473,3 +483,22 @@ def add_review(request, pk):
     else:
         return redirect('logIn')
 
+
+def search(request):
+    query = request.GET.get('q', '')
+    products = Products.objects.filter(name__icontains=query)
+
+    if products:
+        # Get the first product's category and redirect to the category page with a name filter
+        category = products.first().category
+        params = urlencode({'name__icontains': query})
+        url = f"/products/{category.uid}?{params}"
+        return redirect(url)
+    else:
+        # No products found, render a template with a message saying so
+        context = {'query': query}
+        return render(request, 'no_results.html', context)
+    
+    
+def no_results(request):
+    return render(request, 'no_results.html')
