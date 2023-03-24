@@ -502,3 +502,8 @@ def search(request):
     
 def no_results(request):
     return render(request, 'no_results.html')
+
+
+# TOADD
+def contact(request):
+    return render(request, 'contact.html')
